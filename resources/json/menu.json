@@ -1,0 +1,45 @@
+{
+    "main_menu": [
+        {
+            "name": "Dashboard",
+            "route": "dashboard",
+            "icon": "home",
+            "roles": ["user", "admin", "editor"],
+            "children": []
+        },
+        {
+            "name": "Data Master",
+            "route": "master.index",
+            "icon": "database",
+            "roles": ["admin", "editor"],
+            "children": [
+                {
+                    "name": "PIKR",
+                    "route": "master.pikr.index",
+                    "icon": "chart-bar",
+                    "roles": ["admin", "editor"]
+                },
+                {
+                    "name": "Kategori Edukasi",
+                    "route": "master.kategori_edukasi.index",
+                    "icon": "folder",
+                    "roles": ["admin"]
+                },
+                {
+                    "name": "Edukasi",
+                    "route": "master.edukasi.index",
+                    "icon": "book-open",
+                    "roles": ["admin"]
+                },
+                {
+                    "name": "BKBN",
+                    "route": "master.bkbn.index",
+                    "icon": "users",
+                    "roles": ["admin"]
+                }
+            ]
+        }
+       
+       
+    ]
+}

@@ -1,0 +1,55 @@
+@import 'tailwindcss';
+
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../storage/framework/views/*.php';
+@source '../**/*.blade.php';
+@source '../**/*.js';
+
+@theme {
+    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+        'Segoe UI Symbol', 'Noto Color Emoji';
+    
+    /* Elephant Color Palette */
+    --color-elephant-50: #f1f7fa;
+    --color-elephant-100: #dcebf1;
+    --color-elephant-200: #bdd8e4;
+    --color-elephant-300: #8fbcd1;
+    --color-elephant-400: #5a98b6;
+    --color-elephant-500: #3e7c9c;
+    --color-elephant-600: #366684;
+    --color-elephant-700: #32556c;
+    --color-elephant-800: #2f475b;
+    --color-elephant-900: #253543;
+    --color-elephant-950: #182734;
+    
+    /* Forest Green Color Palette */
+    --color-forest-green-50: #f1fcf2;
+    --color-forest-green-100: #ddfbe3;
+    --color-forest-green-200: #bdf5c9;
+    --color-forest-green-300: #8aeba0;
+    --color-forest-green-400: #50d86f;
+    --color-forest-green-500: #29be4b;
+    --color-forest-green-600: #1b9938;
+    --color-forest-green-700: #197c30;
+    --color-forest-green-800: #19622b;
+    --color-forest-green-900: #175026;
+    --color-forest-green-950: #072c11;
+    
+    /* Old Brick Color Palette */
+    --color-old-brick-50: #fdf3f3;
+    --color-old-brick-100: #fde3e3;
+    --color-old-brick-200: #fbcdcd;
+    --color-old-brick-300: #f8a9a9;
+    --color-old-brick-400: #f17878;
+    --color-old-brick-500: #e64d4d;
+    --color-old-brick-600: #d32f2f;
+    --color-old-brick-700: #b12424;
+    --color-old-brick-800: #992323;
+    --color-old-brick-900: #7a2222;
+    --color-old-brick-950: #420d0d;
+    
+    /* Semantic Colors */
+    --color-primary: #253543;
+    --color-success: #1b9938;
+    --color-danger: #992323;
+}
