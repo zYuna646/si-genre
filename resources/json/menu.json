@@ -32,7 +32,7 @@
                     "roles": ["admin"]
                 },
                 {
-                    "name": "BKBN",
+                    "name": "BKKBN",
                     "route": "master.bkbn.index",
                     "icon": "users",
                     "roles": ["admin"]

@@ -73,6 +73,20 @@
             opacity: 1;
             transform: translateY(0);
         }
+
+        /* Tema biru muda */
+        :root {
+            --brand: #67cdf2;
+            --brand-dark: #4fb9e5;
+            --brand-darker: #2898c8;
+        }
+        .brand-gradient { background: linear-gradient(to right, var(--brand), var(--brand-dark)); }
+        .brand-glow { background: linear-gradient(to right, var(--brand), var(--brand-darker)); }
+        .hover-brand:hover { color: var(--brand); }
+        .brand-pill { background-color: rgba(103,205,242,0.15); color: #0a4e68; }
+        .brand-btn { background-color: var(--brand-dark); border-color: var(--brand-darker); }
+        .brand-text { color: var(--brand-darker); }
+        .dark-balloon { background-color: #0f1f2d; }
     </style>
 </head>
 <body class="antialiased bg-gray-50">
@@ -85,11 +99,12 @@
                     <span class="ml-3 text-xl font-semibold text-gray-900">GENRE</span>
                 </div>
                 <nav class="hidden md:flex items-center space-x-8">
-                    <a href="#beranda" class="text-gray-900 hover:text-elephant-600 px-3 py-2 text-sm font-medium">Beranda</a>
-                    <a href="#tentang" class="text-gray-900 hover:text-elephant-600 px-3 py-2 text-sm font-medium">Tentang</a>
-                    <a href="#pikr" class="text-gray-900 hover:text-elephant-600 px-3 py-2 text-sm font-medium">PIKR</a>
-                    <a href="#edukasi" class="text-gray-900 hover:text-elephant-600 px-3 py-2 text-sm font-medium">Edukasi</a>
-                    <a href="{{ route('login') }}" class="bg-elephant-600 text-white hover:bg-elephant-700 px-4 py-2 rounded-md text-sm font-medium">Login</a>
+                    <a href="#beranda" class="text-gray-900 px-3 py-2 text-sm font-medium hover-brand">Beranda</a>
+                    <a href="#tentang" class="text-gray-900 px-3 py-2 text-sm font-medium hover-brand">Tentang</a>
+                    <a href="#pikr" class="text-gray-900 px-3 py-2 text-sm font-medium hover-brand">PIKR</a>
+                    <a href="#artikel" class="text-gray-900 px-3 py-2 text-sm font-medium hover-brand">Artikel</a>
+                    <a href="#edukasi" class="text-gray-900 px-3 py-2 text-sm font-medium hover-brand">Edukasi</a>
+                    <a href="{{ route('login') }}" class="text-white px-4 py-2 rounded-md text-sm font-medium brand-btn hover:opacity-90">Login</a>
                 </nav>
                 <div class="flex items-center md:hidden">
                     <button type="button" class="mobile-menu-button inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500">
@@ -106,35 +121,36 @@
                 <a href="#beranda" class="block px-3 py-2 rounded-md text-base font-medium text-gray-900 hover:bg-gray-50">Beranda</a>
                 <a href="#tentang" class="block px-3 py-2 rounded-md text-base font-medium text-gray-900 hover:bg-gray-50">Tentang</a>
                 <a href="#pikr" class="block px-3 py-2 rounded-md text-base font-medium text-gray-900 hover:bg-gray-50">PIKR</a>
+                <a href="#artikel" class="block px-3 py-2 rounded-md text-base font-medium text-gray-900 hover:bg-gray-50">Artikel</a>
                 <a href="#edukasi" class="block px-3 py-2 rounded-md text-base font-medium text-gray-900 hover:bg-gray-50">Edukasi</a>
-                <a href="{{ route('login') }}" class="block w-full text-center px-3 py-2 rounded-md text-base font-medium bg-indigo-600 text-white hover:bg-indigo-700">Login</a>
+                <a href="{{ route('login') }}" class="block w-full text-center px-3 py-2 rounded-md text-base font-medium text-white brand-btn hover:opacity-90">Login</a>
             </div>
         </div>
     </header>
 
     <!-- Hero Section -->
-    <section id="beranda" class="relative bg-gradient-to-r from-elephant-700 to-elephant-900 overflow-hidden">
+    <section id="beranda" class="relative brand-gradient overflow-hidden">
         <!-- Animated background elements -->
-        <div class="absolute inset-0 overflow-hidden opacity-20">
-            <div class="absolute -top-10 -left-10 w-40 h-40 bg-white rounded-full mix-blend-overlay animate-blob"></div>
-            <div class="absolute top-0 right-0 w-72 h-72 bg-elephant-300 rounded-full mix-blend-overlay animate-blob animation-delay-2000"></div>
-            <div class="absolute bottom-0 left-1/4 w-56 h-56 bg-elephant-400 rounded-full mix-blend-overlay animate-blob animation-delay-4000"></div>
+        <div class="absolute inset-0 overflow-hidden opacity-40">
+            <div class="absolute -top-10 -left-10 w-40 h-40 rounded-full mix-blend-overlay animate-blob dark-balloon"></div>
+            <div class="absolute top-0 right-0 w-72 h-72 rounded-full mix-blend-overlay animate-blob animation-delay-2000 dark-balloon"></div>
+            <div class="absolute bottom-0 left-1/4 w-56 h-56 rounded-full mix-blend-overlay animate-blob animation-delay-4000 dark-balloon"></div>
         </div>
         
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24 relative z-10">
             <div class="md:flex md:items-center md:space-x-8">
                 <div class="md:w-1/2 text-center md:text-left mb-8 md:mb-0 animate-fade-in-up">
-                    <div class="inline-block px-3 py-1 bg-elephant-100 text-elephant-800 rounded-full text-sm font-semibold mb-4 animate-pulse">
+                    <div class="inline-block px-3 py-1 brand-pill rounded-full text-sm font-semibold mb-4 animate-pulse">
                         #GenerasiBerencana
                     </div>
                     <h1 class="text-4xl md:text-5xl font-bold text-white leading-tight">
-                        Pusat Informasi & <span class="text-elephant-200">Konseling Remaja</span>
+                        Pusat Informasi & <span style="">Konseling Remaja</span>
                     </h1>
-                    <p class="mt-4 text-xl text-elephant-100">
+                    <p class="mt-4 text-xl" style="color: #eaf7fd">
                         Menyediakan informasi dan konseling untuk remaja tentang kesehatan reproduksi, pencegahan pernikahan dini, dan perencanaan kehidupan.
                     </p>
                     <div class="mt-8 flex flex-wrap gap-4 justify-center md:justify-start">
-                        <a href="#pikr" class="px-6 py-3 bg-white text-elephant-700 font-medium rounded-md shadow-md hover:bg-elephant-50 transition-all duration-300 hover:shadow-lg transform hover:-translate-y-1">
+                        <a href="#pikr" class="px-6 py-3 bg-white font-medium rounded-md shadow-md transition-all duration-300 hover:shadow-lg transform hover:-translate-y-1" style="color: var(--brand-darker); border: 1px solid var(--brand-darker)">
                             <span class="flex items-center">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a1.994 1.994 0 01-1.414-.586m0 0L11 14h4a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2v4l.586-.586z" />
@@ -142,7 +158,7 @@
                                 Lihat PIKR
                             </span>
                         </a>
-                        <a href="#edukasi" class="px-6 py-3 bg-elephant-900 text-white font-medium rounded-md shadow-md hover:bg-elephant-950 transition-all duration-300 hover:shadow-lg transform hover:-translate-y-1 border border-elephant-700">
+                        <a href="#edukasi" class="px-6 py-3 text-white font-medium rounded-md shadow-md transition-all duration-300 hover:shadow-lg transform hover:-translate-y-1 brand-btn" style="border: 1px solid var(--brand-darker)">
                             <span class="flex items-center">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path d="M12 14l9-5-9-5-9 5 9 5z" />
@@ -154,21 +170,22 @@
                         </a>
                     </div>
                     
-                    <!-- Stats counter -->
-                    <div class="mt-8 grid grid-cols-2 gap-4 max-w-md mx-auto md:mx-0">
-                        <div class="bg-white/10 backdrop-blur-sm rounded-lg p-4 text-center">
-                            <div class="text-3xl font-bold text-elephant-400">50+</div>
-                            <div class="text-elephant-200 text-sm">PIKR Aktif</div>
-                        </div>
-                        <div class="bg-white/10 backdrop-blur-sm rounded-lg p-4 text-center">
-                            <div class="text-3xl font-bold text-elephant-400">1000+</div>
-                            <div class="text-elephant-200 text-sm">Remaja Teredukasi</div>
-                        </div>
-                    </div>
+                    <!-- Statistik dipindah ke bawah maskot -->
                 </div>
                 <div class="md:w-1/2 relative animate-fade-in">
-                    <div class="absolute -inset-0.5 bg-gradient-to-r from-elephant-400 to-elephant-600 rounded-full blur-2xl opacity-75 animate-pulse animation-delay-2000"></div>
-                    <img src="{{ asset('img/maskot.png') }}" alt="Maskot GENRE" class="w-full max-w-md mx-auto md:max-w-full h-auto object-contain relative z-10 animate-float">
+                    <div class="absolute -inset-0.5 brand-glow rounded-full blur-2xl opacity-75 animate-pulse animation-delay-2000"></div>
+                    <img src="{{ asset('img/maskot.png') }}" alt="Maskot GENRE" class="w-3/4 max-w-sm mx-auto md:max-w-md h-auto object-contain relative z-10 animate-float">
+                    <!-- Statistik di bawah maskot -->
+                    <div class="mt-6 grid grid-cols-2 gap-4 max-w-sm mx-auto">
+                        <div class="bg-white/10 backdrop-blur-sm rounded-lg p-4 text-center">
+                            <div class="text-3xl font-bold brand-text">50+</div>
+                            <div class="text-white/80 text-sm">PIKR Aktif</div>
+                        </div>
+                        <div class="bg-white/10 backdrop-blur-sm rounded-lg p-4 text-center">
+                            <div class="text-3xl font-bold brand-text">1000+</div>
+                            <div class="text-white/80 text-sm">Remaja Teredukasi</div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -182,26 +199,24 @@
     <!-- Tentang Section -->
     <section id="tentang" class="py-16 bg-white relative overflow-hidden">
         <!-- Background decoration -->
-        <div class="absolute -right-20 -top-20 w-64 h-64 bg-elephant-100 rounded-full opacity-50"></div>
-        <div class="absolute -left-20 -bottom-20 w-80 h-80 bg-elephant-50 rounded-full opacity-50"></div>
+        <div class="absolute -right-20 -top-20 w-64 h-64 rounded-full opacity-50" style="background-color: rgba(103,205,242,0.12)"></div>
+        <div class="absolute -left-20 -bottom-20 w-80 h-80 rounded-full opacity-50" style="background-color: rgba(103,205,242,0.08)"></div>
         
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <div class="text-center mb-12 reveal">
-                <span class="inline-block px-3 py-1 bg-elephant-100 text-elephant-800 rounded-full text-sm font-semibold mb-4">Tentang Kami</span>
-                <h2 class="text-3xl md:text-4xl font-bold text-gray-900">Tentang <span class="text-elephant-700">GENRE</span></h2>
-                <p class="mt-4 text-xl text-gray-600 max-w-3xl mx-auto">Generasi Berencana untuk Masa Depan yang Lebih Baik</p>
-                <div class="w-24 h-1 bg-elephant-500 mx-auto mt-6"></div>
+
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-900">Tentang <span class="brand-text">GENRE</span></h2>
+                <div class="mt-4 inline-block px-4 py-2 rounded-lg max-w-3xl mx-auto" style="background-color:#dff6e3; color:#0f5132; border: 1px solid #90ddaa">GENRE (Generasi Berencana) adalah program yang dikembangkan untuk mempersiapkan kehidupan berkeluarga bagi remaja melalui pemahaman tentang pendewasaan usia perkawinan.</div>
+                <div class="w-24 h-1 mx-auto mt-6" style="background-color: var(--brand)"></div>
             </div>
             
-            <div class="md:flex md:items-center md:space-x-8">
+            <div class="md:flex md:items-center md:space-x-8 p-6 rounded-xl" style="background-color: rgba(103,205,242,0.08); border: 1px solid var(--brand)">
                 <div class="md:w-1/2 mb-8 md:mb-0 reveal">
                     <img src="{{ asset('img/landing/WhatsApp Image 2025-09-30 at 20.29.46_18ccfa48.jpg') }}" alt="Tentang GENRE" class="rounded-lg shadow-lg w-full h-auto transform transition-all duration-300 hover:scale-105">
                 </div>
                 <div class="md:w-1/2 reveal">
                     <h3 class="text-2xl font-semibold text-gray-900 mb-4">Generasi Berencana</h3>
-                    <p class="text-gray-700 mb-4">
-                        GENRE (Generasi Berencana) adalah program yang dikembangkan untuk mempersiapkan kehidupan berkeluarga bagi remaja melalui pemahaman tentang pendewasaan usia perkawinan.
-                    </p>
+                    <!-- Paragraf dipindahkan ke highlight atas -->
                     <p class="text-gray-700 mb-4">
                         Program ini bertujuan untuk meningkatkan pemahaman dan kesadaran remaja tentang kesehatan reproduksi, mencegah pernikahan dini, dan mempersiapkan kehidupan berkeluarga yang berkualitas.
                     </p>
@@ -209,43 +224,46 @@
                     <!-- Feature list -->
                     <ul class="mt-6 space-y-3">
                         <li class="flex items-center text-gray-700">
-                            <svg class="h-5 w-5 text-elephant-500 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <svg class="h-5 w-5 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" style="color: var(--brand)">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
                             </svg>
                             Pendewasaan Usia Perkawinan
                         </li>
                         <li class="flex items-center text-gray-700">
-                            <svg class="h-5 w-5 text-elephant-500 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <svg class="h-5 w-5 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" style="color: var(--brand)">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
                             </svg>
                             Kesehatan Reproduksi Remaja
                         </li>
                         <li class="flex items-center text-gray-700">
-                            <svg class="h-5 w-5 text-elephant-500 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <svg class="h-5 w-5 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" style="color: var(--brand)">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
                             </svg>
                             Perencanaan Kehidupan Berkualitas
                         </li>
                     </ul>
                     
-                    <div class="grid grid-cols-2 gap-4 mt-6">
-                        <div class="bg-elephant-50 p-4 rounded-lg shadow-sm hover:shadow-md transition-all duration-300">
-                            <div class="text-elephant-600 text-xl font-bold">1000+</div>
-                            <div class="text-gray-700">Remaja Teredukasi</div>
-                        </div>
-                        <div class="bg-elephant-50 p-4 rounded-lg shadow-sm hover:shadow-md transition-all duration-300">
-                            <div class="text-elephant-600 text-xl font-bold">50+</div>
-                            <div class="text-gray-700">PIKR Aktif</div>
-                        </div>
-                        <div class="bg-elephant-50 p-4 rounded-lg shadow-sm hover:shadow-md transition-all duration-300">
-                            <div class="text-elephant-600 text-xl font-bold">100+</div>
-                            <div class="text-gray-700">Kegiatan Tahunan</div>
-                        </div>
-                        <div class="bg-elephant-50 p-4 rounded-lg shadow-sm hover:shadow-md transition-all duration-300">
-                            <div class="text-elephant-600 text-xl font-bold">20+</div>
-                            <div class="text-gray-700">Materi Edukasi</div>
-                        </div>
-                    </div>
+                    <!-- Statistik dipindahkan ke baris di bawah kotak -->
+                </div>
+            </div>
+
+            <!-- Statistik: satu baris di bawah kotak -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-8 reveal">
+                <div class="p-4 rounded-lg shadow-sm hover:shadow-md transition-all duration-300" style="background-color: rgba(103,205,242,0.12)">
+                    <div class="text-xl font-bold brand-text">1000+</div>
+                    <div class="text-gray-700">Remaja Teredukasi</div>
+                </div>
+                <div class="p-4 rounded-lg shadow-sm hover:shadow-md transition-all duration-300" style="background-color: rgba(103,205,242,0.12)">
+                    <div class="text-xl font-bold brand-text">50+</div>
+                    <div class="text-gray-700">PIKR Aktif</div>
+                </div>
+                <div class="p-4 rounded-lg shadow-sm hover:shadow-md transition-all duration-300" style="background-color: rgba(103,205,242,0.12)">
+                    <div class="text-xl font-bold brand-text">100+</div>
+                    <div class="text-gray-700">Kegiatan Tahunan</div>
+                </div>
+                <div class="p-4 rounded-lg shadow-sm hover:shadow-md transition-all duration-300" style="background-color: rgba(103,205,242,0.12)">
+                    <div class="text-xl font-bold brand-text">20+</div>
+                    <div class="text-gray-700">Materi Edukasi</div>
                 </div>
             </div>
         </div>
@@ -254,27 +272,27 @@
     <!-- Artikel Section -->
     <section id="artikel" class="py-16 bg-white relative overflow-hidden">
         <!-- Background decoration -->
-        <div class="absolute -right-20 -top-20 w-64 h-64 bg-elephant-100 rounded-full opacity-50"></div>
-        <div class="absolute -left-20 -bottom-20 w-80 h-80 bg-elephant-50 rounded-full opacity-50"></div>
+        <div class="absolute -right-20 -top-20 w-64 h-64 rounded-full opacity-50" style="background-color: rgba(103,205,242,0.12)"></div>
+        <div class="absolute -left-20 -bottom-20 w-80 h-80 rounded-full opacity-50" style="background-color: rgba(103,205,242,0.08)"></div>
         
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <div class="text-center mb-12 reveal">
-                <span class="inline-block px-3 py-1 bg-elephant-100 text-elephant-800 rounded-full text-sm font-semibold mb-4">Artikel Terbaru</span>
-                <h2 class="text-3xl md:text-4xl font-bold text-gray-900">Artikel <span class="text-elephant-700">Terverifikasi</span></h2>
+                <span class="inline-block px-3 py-1 brand-pill rounded-full text-sm font-semibold mb-4">Artikel Terbaru</span>
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-900">Artikel <span class="brand-text">Terverifikasi</span></h2>
                 <p class="mt-4 text-xl text-gray-600 max-w-3xl mx-auto">Informasi dan Edukasi dari PIKR</p>
-                <div class="w-24 h-1 bg-elephant-500 mx-auto mt-6"></div>
+                <div class="w-24 h-1 mx-auto mt-6" style="background-color: var(--brand)"></div>
             </div>
             
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 @foreach(\App\Models\Artikel::where('isVerified', true)->latest()->take(6)->get() as $artikel)
                 <div class="bg-white rounded-xl shadow-lg overflow-hidden transform transition-all duration-300 hover:-translate-y-2 hover:shadow-xl reveal">
-                    <div class="h-3 bg-elephant-600"></div>
-                    <div class="h-48 bg-elephant-100 flex items-center justify-center">
+                    <div class="h-3" style="background-color: var(--brand)"></div>
+                    <div class="h-48 flex items-center justify-center" style="background-color: rgba(103,205,242,0.08)">
                         @if($artikel->cover)
                             <img src="{{ asset('storage/' . $artikel->cover) }}" alt="{{ $artikel->title }}" class="h-full w-full object-cover">
                         @else
-                            <div class="flex items-center justify-center h-full w-full bg-elephant-200">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 text-elephant-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <div class="flex items-center justify-center h-full w-full" style="background-color: rgba(103,205,242,0.16)">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16" style="color: var(--brand)" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1M19 20a2 2 0 002-2V8a2 2 0 00-2-2h-5M8 12h.01M12 12h.01M16 12h.01M8 16h.01M12 16h.01M16 16h.01" />
                                 </svg>
                             </div>
@@ -300,7 +318,7 @@
                             <span>{{ $artikel->pikr->name ?? 'PIKR' }}</span>
                         </div>
                         
-                        <a href="#" class="inline-flex items-center px-4 py-2 bg-elephant-600 text-white font-medium rounded-lg hover:bg-elephant-700 transition-all duration-300 shadow-md hover:shadow-lg">
+                        <a href="#" class="inline-flex items-center px-4 py-2 font-medium rounded-lg transition-all duration-300 shadow-md hover:shadow-lg brand-btn" style="background-color: var(--brand); border: 1px solid var(--brand-darker); color: white;">
                             <span>Baca Artikel</span>
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
@@ -312,9 +330,9 @@
             </div>
             
             <div class="text-center mt-10">
-                <a href="#" class="inline-flex items-center px-6 py-3 bg-elephant-100 text-elephant-700 font-medium rounded-lg hover:bg-elephant-200 transition-all duration-300">
+                <a href="#" class="inline-flex items-center px-6 py-3 font-medium rounded-lg transition-all duration-300" style="background-color: rgba(103,205,242,0.08); color: var(--brand); border: 1px solid var(--brand);">
                     <span>Lihat Semua Artikel</span>
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" style="color: var(--brand)">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
                     </svg>
                 </a>
@@ -323,18 +341,18 @@
     </section>
 
     <!-- PIKR Section -->
-    <section id="pikr" class="py-16 bg-gradient-to-b from-white to-elephant-50 relative overflow-hidden">
+    <section id="pikr" class="py-16 bg-gradient-to-b from-white to-[#eaf7fd] relative overflow-hidden">
         <!-- Background decoration -->
         <div class="absolute top-0 left-0 w-full h-32 bg-gradient-to-b from-white to-transparent"></div>
-        <div class="absolute -left-16 top-1/4 w-32 h-32 bg-elephant-200 rounded-full opacity-30 animate-blob animation-delay-2000"></div>
-        <div class="absolute -right-16 bottom-1/4 w-32 h-32 bg-elephant-300 rounded-full opacity-30 animate-blob"></div>
+        <div class="absolute -left-16 top-1/4 w-32 h-32 rounded-full opacity-30 animate-blob animation-delay-2000" style="background-color: rgba(103,205,242,0.16)"></div>
+        <div class="absolute -right-16 bottom-1/4 w-32 h-32 rounded-full opacity-30 animate-blob" style="background-color: rgba(103,205,242,0.24)"></div>
         
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <div class="text-center mb-12 reveal">
-                <span class="inline-block px-3 py-1 bg-elephant-100 text-elephant-800 rounded-full text-sm font-semibold mb-4">Lokasi PIKR</span>
-                <h2 class="text-3xl md:text-4xl font-bold text-gray-900">Data <span class="text-elephant-700">PIKR</span></h2>
+                <span class="inline-block px-3 py-1 brand-pill rounded-full text-sm font-semibold mb-4">Lokasi PIKR</span>
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-900">Data <span class="brand-text">PIKR</span></h2>
                 <p class="mt-4 text-xl text-gray-600 max-w-3xl mx-auto">Pusat Informasi & Konseling Remaja di Berbagai Wilayah</p>
-                <div class="w-24 h-1 bg-elephant-500 mx-auto mt-6"></div>
+                <div class="w-24 h-1 mx-auto mt-6" style="background-color: var(--brand)"></div>
             </div>
             
             <!-- Search bar -->
@@ -342,7 +360,7 @@
                 <div class="flex flex-col md:flex-row md:items-center md:space-x-4">
                     <div class="flex-1 mb-4 md:mb-0">
                         <div class="relative">
-                            <input type="text" placeholder="Cari PIKR..." class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-elephant-500 focus:border-elephant-500">
+                            <input type="text" placeholder="Cari PIKR..." class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-brand focus:border-brand" style="--tw-ring-color: var(--brand); border-color: var(--brand)">
                             <div class="absolute left-3 top-2.5 text-gray-400">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
@@ -351,7 +369,7 @@
                         </div>
                     </div>
                     <div class="flex space-x-2">
-                        <button class="px-4 py-2 bg-elephant-600 text-white rounded-lg hover:bg-elephant-700 transition-all duration-300">
+                        <button class="px-4 py-2 brand-btn text-white rounded-lg transition-all duration-300" style="background-color: var(--brand); border: 1px solid var(--brand-darker)">
                             Cari
                         </button>
                     </div>
@@ -361,18 +379,18 @@
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 @foreach(\App\Models\Pikr::take(6)->get() as $pikr)
                 <div class="bg-white rounded-xl shadow-lg overflow-hidden transform transition-all duration-300 hover:-translate-y-2 hover:shadow-xl reveal">
-                    <div class="h-3 bg-elephant-600"></div>
-                    <div class="h-48 bg-elephant-100 flex items-center justify-center">
+                    <div class="h-3" style="background-color: var(--brand)"></div>
+                    <div class="h-48 flex items-center justify-center" style="background-color: rgba(103,205,242,0.08)">
                         @if($pikr->logo)
                             <img src="{{ asset('storage/' . $pikr->logo) }}" alt="{{ $pikr->name }}" class="h-full w-full object-cover">
                         @else
-                            <div class="text-elephant-500 text-4xl font-bold">{{ substr($pikr->name, 0, 2) }}</div>
+                            <div class="text-4xl font-bold" style="color: var(--brand)">{{ substr($pikr->name, 0, 2) }}</div>
                         @endif
                     </div>
                     <div class="p-6">
                         <div class="flex justify-between items-start mb-4">
                             <h3 class="text-xl font-semibold text-gray-900">{{ $pikr->name }}</h3>
-                            <span class="px-2 py-1 bg-elephant-100 text-elephant-800 text-xs font-semibold rounded-full">Aktif</span>
+                            <span class="px-2 py-1 brand-pill text-xs font-semibold rounded-full">Aktif</span>
                         </div>
                         
                         <p class="text-gray-600 mb-4 line-clamp-2">{{ Str::limit($pikr->desc, 100) }}</p>
@@ -381,7 +399,7 @@
                             <!-- SK removed and moved to detail page -->
                         </div>
                         
-                        <a href="{{ route('pikr.detail', $pikr->id) }}" class="inline-flex items-center px-4 py-2 bg-elephant-600 text-white font-medium rounded-lg hover:bg-elephant-700 transition-all duration-300 shadow-md hover:shadow-lg">
+                        <a href="{{ route('pikr.detail', $pikr->id) }}" class="inline-flex items-center px-4 py-2 brand-btn text-white font-medium rounded-lg transition-all duration-300 shadow-md hover:shadow-lg" style="background-color: var(--brand); border: 1px solid var(--brand-darker)">
                             <span>Detail</span>
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
@@ -395,13 +413,13 @@
             <!-- Pagination -->
             <div class="mt-12 flex justify-center reveal">
                 <nav class="inline-flex rounded-md shadow-sm -space-x-px" aria-label="Pagination">
-                    <a href="#" class="relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50">
+                    <a href="#" class="relative inline-flex items-center px-2 py-2 rounded-l-md border bg-white text-sm font-medium text-gray-500 hover:bg-gray-50" style="border-color: var(--brand)">
                         <span class="sr-only">Previous</span>
                         <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                             <path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd" />
                         </svg>
                     </a>
-                    <a href="#" class="relative inline-flex items-center px-4 py-2 border border-gray-300 bg-elephant-50 text-sm font-medium text-elephant-600 hover:bg-elephant-100">1</a>
+                    <a href="#" class="relative inline-flex items-center px-4 py-2 border text-sm font-medium" style="background-color: rgba(103,205,242,0.08); color: var(--brand); border-color: var(--brand);">1</a>
                     <a href="#" class="relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50">2</a>
                     <a href="#" class="relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50">3</a>
                     <a href="#" class="relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50">
@@ -416,17 +434,17 @@
     </section>
 
     <!-- Edukasi Section -->
-    <section id="edukasi" class="py-16 bg-gradient-to-b from-elephant-50 to-white relative overflow-hidden">
+    <section id="edukasi" class="py-16 bg-gradient-to-b from-[#eaf7fd] to-white relative overflow-hidden">
         <!-- Background decoration -->
-        <div class="absolute top-0 right-0 w-64 h-64 bg-elephant-100 rounded-full opacity-30 transform -translate-x-1/2 -translate-y-1/2"></div>
-        <div class="absolute bottom-0 left-0 w-64 h-64 bg-elephant-200 rounded-full opacity-20 transform translate-x-1/3 translate-y-1/3"></div>
+        <div class="absolute top-0 right-0 w-64 h-64 rounded-full opacity-30 transform -translate-x-1/2 -translate-y-1/2" style="background-color: rgba(103,205,242,0.12)"></div>
+        <div class="absolute bottom-0 left-0 w-64 h-64 rounded-full opacity-20 transform translate-x-1/3 translate-y-1/3" style="background-color: rgba(103,205,242,0.16)"></div>
         
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <div class="text-center mb-12 reveal">
-                <span class="inline-block px-3 py-1 bg-elephant-100 text-elephant-800 rounded-full text-sm font-semibold mb-4">Pengetahuan</span>
-                <h2 class="text-3xl md:text-4xl font-bold text-gray-900">Materi <span class="text-elephant-700">Edukasi</span></h2>
+                <span class="inline-block px-3 py-1 brand-pill rounded-full text-sm font-semibold mb-4">Pengetahuan</span>
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-900">Materi <span class="brand-text">Edukasi</span></h2>
                 <p class="mt-4 text-xl text-gray-600 max-w-3xl mx-auto">Berbagai materi edukasi tentang kesehatan reproduksi, pencegahan pernikahan dini, dan perencanaan kehidupan.</p>
-                <div class="w-24 h-1 bg-elephant-500 mx-auto mt-6"></div>
+                <div class="w-24 h-1 mx-auto mt-6" style="background-color: var(--brand)"></div>
             </div>
             
             <!-- Category filter -->
@@ -442,11 +460,11 @@
                     $edukasiList = $edukasiQuery->paginate(6);
                 @endphp
                 
-                <a href="{{ url('#edukasi') }}" class="px-4 py-2 {{ !$selectedKategori ? 'bg-elephant-600 text-white' : 'bg-white text-elephant-700 border border-elephant-200' }} rounded-full hover:bg-elephant-700 hover:text-white transition-all duration-300">
+                <a href="{{ url('#edukasi') }}" class="px-4 py-2 {{ !$selectedKategori ? 'brand-btn text-white' : 'bg-white brand-text border' }} rounded-full transition-all duration-300" style="{{ !$selectedKategori ? 'background-color: var(--brand); border: 1px solid var(--brand-darker)' : 'border-color: var(--brand)' }}">
                     Semua
                 </a>
                 @foreach(\App\Models\KategoriEdukasi::all() as $kategori)
-                <a href="{{ url('#edukasi') . '?kategori=' . $kategori->id }}" class="px-4 py-2 {{ $selectedKategori == $kategori->id ? 'bg-elephant-600 text-white' : 'bg-white text-elephant-700 border border-elephant-200' }} rounded-full hover:bg-elephant-700 hover:text-white transition-all duration-300">
+                <a href="{{ url('#edukasi') . '?kategori=' . $kategori->id }}" class="px-4 py-2 {{ $selectedKategori == $kategori->id ? 'brand-btn text-white' : 'bg-white brand-text border' }} rounded-full transition-all duration-300" style="{{ $selectedKategori == $kategori->id ? 'background-color: var(--brand); border: 1px solid var(--brand-darker)' : 'border-color: var(--brand)' }}">
                     {{ $kategori->name }}
                 </a>
                 @endforeach
@@ -459,7 +477,7 @@
                         @if($edukasi->cover)
                             <img src="{{ asset('storage/' . $edukasi->cover) }}" alt="{{ $edukasi->name }}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
                         @else
-                            <div class="w-full h-full flex items-center justify-center bg-elephant-100 text-elephant-500 transition-all duration-300 group-hover:bg-elephant-200">
+                            <div class="w-full h-full flex items-center justify-center transition-all duration-300" style="background-color: rgba(103,205,242,0.08); color: var(--brand)">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                                 </svg>
@@ -473,7 +491,7 @@
                     </div>
                     <div class="p-6">
                         <div class="flex items-center justify-between mb-3">
-                            <span class="px-3 py-1 bg-elephant-100 text-elephant-800 text-xs font-semibold rounded-full">{{ $edukasi->kategori->name ?? 'Umum' }}</span>
+                            <span class="px-3 py-1 brand-pill text-xs font-semibold rounded-full">{{ $edukasi->kategori->name ?? 'Umum' }}</span>
                             <span class="flex items-center text-gray-500 text-sm">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
@@ -482,16 +500,16 @@
                                 {{ rand(50, 500) }}
                             </span>
                         </div>
-                        <h3 class="text-xl font-semibold text-gray-900 mb-3 hover:text-elephant-700 transition-colors duration-300">{{ $edukasi->name }}</h3>
+                        <h3 class="text-xl font-semibold text-gray-900 mb-3 transition-colors duration-300 hover:brand-text">{{ $edukasi->name }}</h3>
                         <p class="text-gray-600 mb-6 line-clamp-3">{{ Str::limit($edukasi->desc, 120) }}</p>
                         <div class="flex justify-between items-center">
                             <div class="flex items-center">
-                                <div class="w-8 h-8 rounded-full bg-elephant-200 flex items-center justify-center text-elephant-700 text-xs font-bold mr-2">
+                                <div class="w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold mr-2" style="background-color: rgba(103,205,242,0.16); color: var(--brand)">
                                     A
                                 </div>
                                 <span class="text-sm text-gray-600">Admin</span>
                             </div>
-                            <a href="{{ asset('storage/' . $edukasi->file) }}" class="inline-flex items-center px-4 py-2 bg-elephant-600 text-white font-medium rounded-lg hover:bg-elephant-700 transition-all duration-300 shadow-md hover:shadow-lg">
+                            <a href="{{ asset('storage/' . $edukasi->file) }}" class="inline-flex items-center px-4 py-2 brand-btn text-white font-medium rounded-lg transition-all duration-300 shadow-md hover:shadow-lg" style="background-color: var(--brand); border: 1px solid var(--brand-darker)">
                                 <span>Baca</span>
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
@@ -515,7 +533,7 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-12">
                 <h2 class="text-3xl font-bold text-gray-900">Galeri Kegiatan</h2>
-                <div class="mt-2 h-1 w-20 bg-indigo-600 mx-auto"></div>
+                <div class="mt-2 h-1 w-20 mx-auto" style="background-color: var(--brand)"></div>
                 <p class="mt-4 text-gray-600 max-w-3xl mx-auto">
                     Dokumentasi kegiatan PIKR dalam memberikan edukasi dan konseling bagi remaja.
                 </p>
@@ -550,63 +568,63 @@
     </section>
 
     <!-- CTA Section -->
-    <section class="py-20 bg-gradient-to-br from-elephant-800 to-elephant-900 text-white relative overflow-hidden">
+    <section class="py-20 brand-gradient text-white relative overflow-hidden">
         <!-- Decorative Elements -->
         <div class="absolute top-0 left-0 w-full h-20 bg-white opacity-5 transform -skew-y-3"></div>
         <div class="absolute bottom-0 right-0 w-full h-20 bg-white opacity-5 transform skew-y-3"></div>
-        <div class="absolute top-1/4 left-10 w-24 h-24 rounded-full bg-elephant-600 opacity-20 animate-pulse"></div>
-        <div class="absolute bottom-1/4 right-10 w-32 h-32 rounded-full bg-elephant-600 opacity-20 animate-float"></div>
+        <div class="absolute top-1/4 left-10 w-24 h-24 rounded-full opacity-20 animate-pulse" style="background-color: var(--brand)"></div>
+        <div class="absolute bottom-1/4 right-10 w-32 h-32 rounded-full opacity-20 animate-float" style="background-color: var(--brand)"></div>
         
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
             <div class="max-w-3xl mx-auto">
-                <span class="inline-block bg-elephant-700 text-elephant-100 text-sm px-4 py-1 rounded-full mb-4 animate-fadeIn">Bergabung Bersama Kami</span>
-                <h2 class="text-4xl font-bold mb-6 animate-slideInUp">Jadilah Bagian dari <span class="text-elephant-200">GENRE</span> Hari Ini</h2>
-                <p class="text-elephant-100 text-lg max-w-2xl mx-auto mb-10 animate-slideInUp">
+                <span class="inline-block text-sm px-4 py-1 rounded-full mb-4 animate-fadeIn" style="background-color: rgba(255,255,255,0.15); color: #eaf7fd; border: 1px solid rgba(255,255,255,0.3)">Bergabung Bersama Kami</span>
+                <h2 class="text-4xl font-bold mb-6 animate-slideInUp">Jadilah Bagian dari <span style="color: #eaf7fd">GENRE</span> Hari Ini</h2>
+                <p class="text-lg max-w-2xl mx-auto mb-10 animate-slideInUp" style="color: #eaf7fd">
                     Bergabunglah dalam gerakan untuk membangun masa depan yang lebih baik bagi remaja Indonesia melalui edukasi dan pemberdayaan.
                 </p>
-                <div class="bg-white/10 backdrop-blur-sm p-6 rounded-xl mb-10 animate-slideInUp">
+                {{-- <div class="bg-white/10 backdrop-blur-sm p-6 rounded-xl mb-10 animate-slideInUp">
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
                         <div class="p-4">
-                            <div class="w-16 h-16 bg-elephant-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <div class="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4" style="background-color: var(--brand)">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
                                 </svg>
                             </div>
                             <h3 class="text-xl font-semibold mb-2">Daftar</h3>
-                            <p class="text-elephant-200">Buat akun dan bergabung dengan komunitas</p>
+                            <p style="color: #eaf7fd">Buat akun dan bergabung dengan komunitas</p>
                         </div>
                         <div class="p-4">
-                            <div class="w-16 h-16 bg-elephant-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <div class="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4" style="background-color: var(--brand)">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
                                 </svg>
                             </div>
                             <h3 class="text-xl font-semibold mb-2">Belajar</h3>
-                            <p class="text-elephant-200">Akses materi edukasi berkualitas</p>
+                            <p style="color: #eaf7fd">Akses materi edukasi berkualitas</p>
                         </div>
                         <div class="p-4">
-                            <div class="w-16 h-16 bg-elephant-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <div class="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4" style="background-color: var(--brand)">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
                                 </svg>
                             </div>
                             <h3 class="text-xl font-semibold mb-2">Berbagi</h3>
-                            <p class="text-elephant-200">Bagikan pengetahuan dengan teman</p>
+                            <p style="color: #eaf7fd">Bagikan pengetahuan dengan teman</p>
                         </div>
                     </div>
-                </div>
-                <a href="#" class="bg-white text-elephant-800 hover:bg-elephant-100 font-bold py-4 px-10 rounded-lg transition duration-300 inline-flex items-center hover-lift animate-pulse">
+                </div> --}}
+                {{-- <a href="#" class="font-bold py-4 px-10 rounded-lg transition duration-300 inline-flex items-center hover-lift animate-pulse brand-btn text-white" style="background-color: var(--brand); border: 1px solid var(--brand-darker)">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                     </svg>
                     Daftar Sekarang
-                </a>
+                </a> --}}
             </div>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer class="bg-elephant-900 text-elephant-100 py-16">
+    <footer class="brand-gradient text-white py-16">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid grid-cols-1 md:grid-cols-4 gap-10">
                 <div class="animate-fadeIn">
@@ -614,19 +632,19 @@
                         <img src="{{ asset('img/maskot.png') }}" alt="GENRE Logo" class="h-10 w-auto mr-3">
                         <h3 class="text-white text-xl font-bold">GENRE</h3>
                     </div>
-                    <p class="mb-6 text-elephant-200">Generasi Berencana untuk masa depan yang lebih baik melalui edukasi dan pemberdayaan remaja Indonesia.</p>
+                    <p class="mb-6" style="color: #eaf7fd">Generasi Berencana untuk masa depan yang lebih baik melalui edukasi dan pemberdayaan remaja Indonesia.</p>
                     <div class="flex space-x-4">
-                        <a href="#" class="w-10 h-10 rounded-full bg-elephant-800 flex items-center justify-center text-elephant-100 hover:bg-elephant-600 hover:text-white transition duration-300">
+                        <a href="#" class="w-10 h-10 rounded-full flex items-center justify-center transition duration-300 hover:opacity-90" style="background-color: rgba(255,255,255,0.15); color: #eaf7fd; border: 1px solid rgba(255,255,255,0.3)">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
                                 <path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v3.385z"/>
                             </svg>
                         </a>
-                        <a href="#" class="w-10 h-10 rounded-full bg-elephant-800 flex items-center justify-center text-elephant-100 hover:bg-elephant-600 hover:text-white transition duration-300">
+                        <a href="#" class="w-10 h-10 rounded-full flex items-center justify-center transition duration-300 hover:opacity-90" style="background-color: rgba(255,255,255,0.15); color: #eaf7fd; border: 1px solid rgba(255,255,255,0.3)">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
                                 <path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"/>
                             </svg>
                         </a>
-                        <a href="#" class="w-10 h-10 rounded-full bg-elephant-800 flex items-center justify-center text-elephant-100 hover:bg-elephant-600 hover:text-white transition duration-300">
+                        <a href="#" class="w-10 h-10 rounded-full flex items-center justify-center transition duration-300 hover:opacity-90" style="background-color: rgba(255,255,255,0.15); color: #eaf7fd; border: 1px solid rgba(255,255,255,0.3)">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
                                 <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
                             </svg>
@@ -634,11 +652,11 @@
                     </div>
                 </div>
                 <div class="animate-fadeIn" style="animation-delay: 0.2s">
-                    <h3 class="text-white text-lg font-bold mb-6 border-b border-elephant-700 pb-2">Tautan Cepat</h3>
+                    <h3 class="text-white text-lg font-bold mb-6 border-b pb-2" style="border-color: rgba(255,255,255,0.3)">Tautan Cepat</h3>
                     <ul class="space-y-3">
                         <li>
                             <a href="#beranda" class="hover:text-white transition duration-300 flex items-center">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2 text-elephant-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" style="color: #eaf7fd">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
                                 </svg>
                                 Beranda
@@ -646,7 +664,7 @@
                         </li>
                         <li>
                             <a href="#tentang" class="hover:text-white transition duration-300 flex items-center">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2 text-elephant-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" style="color: #eaf7fd">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
                                 </svg>
                                 Tentang Kami
@@ -654,7 +672,7 @@
                         </li>
                         <li>
                             <a href="#pikr" class="hover:text-white transition duration-300 flex items-center">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2 text-elephant-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" style="color: #eaf7fd">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
                                 </svg>
                                 PIKR
@@ -662,7 +680,7 @@
                         </li>
                         <li>
                             <a href="#edukasi" class="hover:text-white transition duration-300 flex items-center">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2 text-elephant-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" style="color: #eaf7fd">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
                                 </svg>
                                 Edukasi
@@ -671,36 +689,38 @@
                     </ul>
                 </div>
                 <div class="animate-fadeIn" style="animation-delay: 0.4s">
-                    <h3 class="text-white text-lg font-bold mb-6 border-b border-elephant-700 pb-2">Kontak Kami</h3>
+                    <h3 class="text-white text-lg font-bold mb-6 border-b pb-2" style="border-color: rgba(255,255,255,0.3)">Kontak Kami</h3>
                     <ul class="space-y-4">
                         <li class="flex items-start">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3 text-elephant-400 mt-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3 mt-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" style="color: #eaf7fd">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                             </svg>
-                            <span>info@genre.org</span>
+                            <span>genregorut@gmail.com</span>
                         </li>
                         <li class="flex items-start">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3 text-elephant-400 mt-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3 mt-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" style="color: #eaf7fd">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
                             </svg>
-                            <span>+62 123 4567 890</span>
+                            <span>genre.gorontaloutara</span>
                         </li>
                         <li class="flex items-start">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3 text-elephant-400 mt-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3 mt-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" style="color: #eaf7fd">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                             </svg>
-                            <span>Jl. Contoh No. 123, Jakarta Pusat, Indonesia</span>
+                            <span>Molingkapoto, Kec. Kwandang, Kabupaten Gorontalo
+ Utara, Gorontalo 96252
+</span>
                         </li>
                     </ul>
                 </div>
-                <div class="animate-fadeIn" style="animation-delay: 0.6s">
-                    <h3 class="text-white text-lg font-bold mb-6 border-b border-elephant-700 pb-2">Berlangganan</h3>
-                    <p class="mb-6 text-elephant-200">Dapatkan informasi terbaru dari kami langsung ke email Anda.</p>
+                {{-- <div class="animate-fadeIn" style="animation-delay: 0.6s">
+                    <h3 class="text-white text-lg font-bold mb-6 border-b pb-2" style="border-color: rgba(255,255,255,0.3)">Berlangganan</h3>
+                    <p class="mb-6" style="color: #eaf7fd">Dapatkan informasi terbaru dari kami langsung ke email Anda.</p>
                     <form class="mb-4">
                         <div class="flex flex-col space-y-3">
-                            <input type="email" placeholder="Email Anda" class="px-4 py-3 rounded-lg w-full focus:outline-none text-elephant-800 bg-elephant-100 focus:ring-2 focus:ring-elephant-500">
-                            <button type="submit" class="bg-elephant-600 hover:bg-elephant-500 px-4 py-3 rounded-lg text-white font-medium transition duration-300 flex items-center justify-center hover-lift">
+                            <input type="email" placeholder="Email Anda" class="px-4 py-3 rounded-lg w-full focus:outline-none bg-white/90 text-gray-900 border focus:ring-2" style="--tw-ring-color: var(--brand); border-color: rgba(255,255,255,0.3)">
+                            <button type="submit" class="px-4 py-3 rounded-lg text-white font-medium transition duration-300 flex items-center justify-center hover-lift brand-btn" style="background-color: var(--brand); border: 1px solid var(--brand-darker)">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
                                 </svg>
@@ -708,11 +728,11 @@
                             </button>
                         </div>
                     </form>
-                    <p class="text-xs text-elephant-300">Kami tidak akan pernah membagikan email Anda kepada pihak lain.</p>
-                </div>
+                    <p class="text-xs" style="color: #eaf7fd">Kami tidak akan pernah membagikan email Anda kepada pihak lain.</p>
+                </div> --}}
             </div>
-            <div class="border-t border-elephant-700 mt-12 pt-8 text-center">
-                <p class="text-elephant-300">&copy; {{ date('Y') }} GENRE. Hak Cipta Dilindungi.</p>
+            <div class="border-t mt-12 pt-8 text-center" style="border-color: rgba(255,255,255,0.3)">
+                <p style="color: #eaf7fd">&copy; {{ date('Y') }} GENRE. Hak Cipta Dilindungi.</p>
             </div>
         </div>
     </footer>

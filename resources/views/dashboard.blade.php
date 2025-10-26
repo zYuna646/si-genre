@@ -6,7 +6,11 @@
     <x-card class="bg-gradient-to-br from-elephant-50 to-white border-0 shadow-lg">
         <div class="text-center">
             <h1 class="text-3xl font-bold text-elephant-800 mb-4">
-                Selamat Datang di Dashboard
+                @if($user->hasRole('admin_bkbn'))
+                    Dashboard Admin BKBN
+                @else
+                    Selamat Datang di Dashboard
+                @endif
             </h1>
             
             @if($user->hasRole('admin_pikr'))
@@ -128,6 +132,19 @@
                     </div>
                 </div>
                 @endif
+            @elseif($user->hasRole('admin_bkbn'))
+                <!-- Tampilan khusus untuk admin_bkbn -->
+                <div class="mb-6">
+                    <!-- Tombol Aksi untuk admin_bkbn -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
+                        <a href="{{ route('welcome') }}" class="px-4 py-3 bg-gradient-to-r from-blue-500 to-blue-600 text-white font-medium rounded-md text-center hover:from-blue-600 hover:to-blue-700 transition-all duration-300 shadow-md hover:shadow-lg transform hover:scale-105 flex items-center justify-center">
+                            <i class="fas fa-globe mr-2"></i> Lihat Website
+                        </a>
+                        <a href="#" class="px-4 py-3 bg-gradient-to-r from-green-500 to-green-600 text-white font-medium rounded-md text-center hover:from-green-600 hover:to-green-700 transition-all duration-300 shadow-md hover:shadow-lg transform hover:scale-105 flex items-center justify-center">
+                            <i class="fas fa-print mr-2"></i> Cetak Laporan
+                        </a>
+                    </div>
+                </div>
             @else
                 <p class="text-elephant-600 mb-6">
                     Anda berhasil login sebagai pengguna biasa. Ini adalah dashboard Anda.
@@ -162,13 +179,6 @@
             </div>
 
             <!-- Quick Actions -->
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <x-button variant="primary" size="lg" class="w-full shadow-md hover:shadow-lg transition-shadow duration-300 transform hover:scale-105">
-                    <i class="fas fa-user mr-2"></i> Lihat Profil
-                </x-button>
-                <x-button variant="outline-primary" size="lg" class="w-full shadow-md hover:shadow-lg transition-shadow duration-300 transform hover:scale-105">
-                    <i class="fas fa-cog mr-2"></i> Pengaturan
-                </x-button>
                 <x-button href="{{ route('welcome') }}" variant="ghost" size="lg" class="w-full shadow-md hover:shadow-lg transition-shadow duration-300 transform hover:scale-105">
                     <i class="fas fa-home mr-2"></i> Kembali ke Beranda
                 </x-button>
