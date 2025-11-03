@@ -26,7 +26,7 @@ class EdukasiController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'desc' => 'nullable|string',
-            'file' => 'required|file|mimes:pdf,mp4,avi,mov,wmv|max:20480',
+            'file' => 'required|file|mimes:pdf,mp4,avi,mov,wmv|max:20480', // 20MB
             'cover' => 'required|image|mimes:jpeg,png,jpg|max:2048',
             'kategori_edukasi_id' => 'required|exists:kategori_edukasi,id',
         ]);
@@ -66,7 +66,7 @@ class EdukasiController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'desc' => 'nullable|string',
-            'file' => 'nullable|file|mimes:pdf,mp4,avi,mov,wmv|max:20480',
+            'file' => 'nullable|file|mimes:pdf,mp4,avi,mov,wmv|max:20480', // 20MB
             'cover' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
             'kategori_edukasi_id' => 'required|exists:kategori_edukasi,id',
         ]);

@@ -63,6 +63,11 @@ class ArtikelController extends Controller
             ->with('success', 'Artikel berhasil ditambahkan');
     }
 
+    public function showLanding(Artikel $artikel)
+    {
+        return view('artikel.detail', compact('artikel'));
+    }
+
     /**
      * Display the specified resource.
      */

@@ -318,7 +318,7 @@
                             <span>{{ $artikel->pikr->name ?? 'PIKR' }}</span>
                         </div>
                         
-                        <a href="#" class="inline-flex items-center px-4 py-2 font-medium rounded-lg transition-all duration-300 shadow-md hover:shadow-lg brand-btn" style="background-color: var(--brand); border: 1px solid var(--brand-darker); color: white;">
+                        <a href="{{ route('artikel.show', $artikel) }}" class="inline-flex items-center px-4 py-2 font-medium rounded-lg transition-all duration-300 shadow-md hover:shadow-lg brand-btn" style="background-color: var(--brand); border: 1px solid var(--brand-darker); color: white;">
                             <span>Baca Artikel</span>
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />

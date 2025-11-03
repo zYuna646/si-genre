@@ -74,6 +74,7 @@ class LaporanKegiatanController extends Controller
             'kegiatan_id' => $validated['kegiatan_id'],
             'jumlah_peserta' => $validated['jumlah_peserta'],
             'ringkasan_kegiatan' => $validated['ringkasan_kegiatan'],
+            'isVerified' => true, // Otomatis set isVerified menjadi true
         ];
         
         // Handle file uploads

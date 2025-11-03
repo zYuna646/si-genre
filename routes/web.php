@@ -13,6 +13,9 @@ Route::get('/pikr/{id}', [\App\Http\Controllers\PikrDetailController::class, 'sh
 // Edukasi Detail Route
 Route::get('/edukasi/{id}', [\App\Http\Controllers\EdukasiDetailController::class, 'show'])->name('edukasi.detail');
 
+// Artikel Detail Route
+Route::get('/artikel/{artikel}', [\App\Http\Controllers\ArtikelController::class, 'showLanding'])->name('artikel.show');
+
 Route::get('/tailwind-test', function () {
     return view('tailwind-test');
 });

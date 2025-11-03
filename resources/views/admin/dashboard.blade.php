@@ -45,6 +45,50 @@
                             </div>
                         </div>
 
+                            <!-- Tabel Artikel Terverifikasi -->
+                        <div class="mt-8 bg-white p-6 rounded-lg shadow-md">
+                            <h3 class="text-lg font-semibold text-gray-900 mb-4">Artikel Terverifikasi</h3>
+                            <div class="overflow-x-auto">
+                                <table class="min-w-full bg-white border border-gray-200">
+                                    <thead>
+                                        <tr>
+                                            <th class="py-2 px-4 border-b border-gray-200 bg-gray-50 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">Judul</th>
+                                            <th class="py-2 px-4 border-b border-gray-200 bg-gray-50 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">PIKR</th>
+                                            <th class="py-2 px-4 border-b border-gray-200 bg-gray-50 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">Tanggal Dibuat</th>
+                                            <th class="py-2 px-4 border-b border-gray-200 bg-gray-50 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">Aksi</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @php
+                                            $verifiedArtikels = \App\Models\Artikel::where('isVerified', true)
+                                                ->with('pikr')
+                                                ->orderBy('created_at', 'desc')
+                                                ->take(5)
+                                                ->get();
+                                        @endphp
+                                        
+                                        @forelse($verifiedArtikels as $artikel)
+                                            <tr>
+                                                <td class="py-2 px-4 border-b border-gray-200">{{ $artikel->title }}</td>
+                                                <td class="py-2 px-4 border-b border-gray-200">{{ $artikel->pikr->name ?? 'Tidak ada PIKR' }}</td>
+                                                <td class="py-2 px-4 border-b border-gray-200">{{ $artikel->created_at->format('d M Y') }}</td>
+                                                <td class="py-2 px-4 border-b border-gray-200">
+                                                    <a href="{{ route('artikel.show', $artikel) }}" class="text-blue-600 hover:text-blue-800">Lihat</a>
+                                                </td>
+                                            </tr>
+                                        @empty
+                                            <tr>
+                                                <td colspan="4" class="py-4 px-4 border-b border-gray-200 text-center text-gray-500">Tidak ada artikel terverifikasi</td>
+                                            </tr>
+                                        @endforelse
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="mt-4 text-right">
+                                {{-- <a href="{{ route('master.artikel.index') }}" class="text-blue-600 hover:text-blue-800 text-sm font-medium">Lihat Semua Artikel</a> --}}
+                            </div>
+                        </div>
+
                         @if($user->hasRole('admin_bkbn'))
                         <!-- Admin BKBN Stats -->
                         <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
@@ -113,12 +157,12 @@
                                 </svg>
                                 Lihat Website
                             </x-button>
-                            <x-button href="{{ route('master.pikr.index') }}" variant="primary" size="lg" class="w-full">
+                            {{-- <x-button href="{{ route('master.pikr.index') }}" variant="primary" size="lg" class="w-full">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
                                 </svg>
                                 Lihat Data PIKR
-                            </x-button>
+                            </x-button> --}}
                             <x-button href="{{ route('admin.laporan') }}" variant="success" size="lg" class="w-full">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
@@ -174,6 +218,8 @@
                                 </a>
                             </div>
                         </div>
+                        
+                    
                         
                         @elseif(!$user->hasRole('admin_pikr'))
                         <!-- Admin Stats -->
