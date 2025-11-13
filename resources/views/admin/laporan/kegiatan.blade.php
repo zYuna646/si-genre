@@ -53,22 +53,26 @@
                 <th>No</th>
                 <th>Nama PIKR</th>
                 <th>Nama Kegiatan</th>
-                <th>Tanggal</th>
+                <th>Tanggal Pelaksanaan</th>
                 <th>Lokasi</th>
-                <th>Deskripsi</th>
-                <th>Status</th>
+                <th>Tujuan</th>
+                <th>Tema</th>
+                <th>Jumlah Peserta</th>
+                <th>Status Laporan</th>
             </tr>
         </thead>
         <tbody>
             @foreach($kegiatan as $index => $item)
             <tr>
                 <td>{{ $index + 1 }}</td>
-                <td>{{ $item->pikr->nama }}</td>
-                <td>{{ $item->nama }}</td>
-                <td>{{ $item->tanggal }}</td>
+                <td>{{ $item->pikr->name }}</td>
+                <td>{{ $item->name }}</td>
+                <td>{{ optional($item->tanggal_pelaksanaan)->format('d-m-Y') }}</td>
                 <td>{{ $item->lokasi }}</td>
-                <td>{{ \Illuminate\Support\Str::limit($item->deskripsi, 50) }}</td>
-                <td>{{ $item->status }}</td>
+                <td>{{ \Illuminate\Support\Str::limit($item->tujuan, 50) }}</td>
+                <td>{{ \Illuminate\Support\Str::limit($item->tema, 30) }}</td>
+                <td>{{ optional($item->laporanKegiatan)->jumlah_peserta ?? '-' }}</td>
+                <td>{{ optional($item->laporanKegiatan)->isVerified ? 'Terverifikasi' : 'Pending' }}</td>
             </tr>
             @endforeach
         </tbody>

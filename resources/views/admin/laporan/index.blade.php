@@ -47,21 +47,21 @@
                 <thead>
                     <tr>
                         <th class="py-3 px-4 border-b border-gray-200 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nama PIKR</th>
-                        <th class="py-3 px-4 border-b border-gray-200 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Alamat</th>
-                        <th class="py-3 px-4 border-b border-gray-200 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                        <th class="py-3 px-4 border-b border-gray-200 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Deskripsi</th>
+                        <th class="py-3 px-4 border-b border-gray-200 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status SK</th>
                         <th class="py-3 px-4 border-b border-gray-200 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach(\App\Models\Pikr::all() as $pikr)
                     <tr>
-                        <td class="py-4 px-4 border-b border-gray-200">{{ $pikr->nama }}</td>
-                        <td class="py-4 px-4 border-b border-gray-200">{{ $pikr->alamat }}</td>
+                        <td class="py-4 px-4 border-b border-gray-200">{{ $pikr->name }}</td>
+                        <td class="py-4 px-4 border-b border-gray-200">{{ $pikr->desc }}</td>
                         <td class="py-4 px-4 border-b border-gray-200">
-                            @if($pikr->status == 'verified')
-                                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">Terverifikasi</span>
+                            @if(!empty($pikr->sk))
+                                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">Memiliki SK</span>
                             @else
-                                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">Pending</span>
+                                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">Belum Memiliki SK</span>
                             @endif
                         </td>
                         <td class="py-4 px-4 border-b border-gray-200">

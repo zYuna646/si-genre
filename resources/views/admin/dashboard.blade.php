@@ -47,7 +47,7 @@
 
                             <!-- Tabel Artikel Terverifikasi -->
                         <div class="mt-8 bg-white p-6 rounded-lg shadow-md">
-                            <h3 class="text-lg font-semibold text-gray-900 mb-4">Artikel Terverifikasi</h3>
+                            <h3 class="text-lg font-semibold text-gray-900 mb-4">Artikel </h3>
                             <div class="overflow-x-auto">
                                 <table class="min-w-full bg-white border border-gray-200">
                                     <thead>
@@ -60,25 +60,34 @@
                                     </thead>
                                     <tbody>
                                         @php
-                                            $verifiedArtikels = \App\Models\Artikel::where('isVerified', true)
+                                            $unverifiedArtikels = \App\Models\Artikel::where('isVerified', false)
                                                 ->with('pikr')
                                                 ->orderBy('created_at', 'desc')
                                                 ->take(5)
                                                 ->get();
                                         @endphp
                                         
-                                        @forelse($verifiedArtikels as $artikel)
+                                        @forelse($unverifiedArtikels as $artikel)
                                             <tr>
                                                 <td class="py-2 px-4 border-b border-gray-200">{{ $artikel->title }}</td>
                                                 <td class="py-2 px-4 border-b border-gray-200">{{ $artikel->pikr->name ?? 'Tidak ada PIKR' }}</td>
                                                 <td class="py-2 px-4 border-b border-gray-200">{{ $artikel->created_at->format('d M Y') }}</td>
                                                 <td class="py-2 px-4 border-b border-gray-200">
-                                                    <a href="{{ route('artikel.show', $artikel) }}" class="text-blue-600 hover:text-blue-800">Lihat</a>
+                                                    <a href="{{ route('artikel.show', $artikel) }}" class="text-blue-600 hover:text-blue-800 mr-3">Lihat</a>
+                                                    @if(auth()->user()->getRoleNames()[0] === 'admin')
+                                                    <form action="{{ route('master.artikel.verify', $artikel->id) }}" method="POST" class="inline">
+                                                        @csrf
+                                                        @method('PATCH')
+                                                        <button type="submit" class="text-green-600 hover:text-green-800" title="Verifikasi Artikel">
+                                                            Verifikasi
+                                                        </button>
+                                                    </form>
+                                                    @endif
                                                 </td>
                                             </tr>
                                         @empty
                                             <tr>
-                                                <td colspan="4" class="py-4 px-4 border-b border-gray-200 text-center text-gray-500">Tidak ada artikel terverifikasi</td>
+                                                <td colspan="4" class="py-4 px-4 border-b border-gray-200 text-center text-gray-500">Tidak ada artikel belum terverifikasi</td>
                                             </tr>
                                         @endforelse
                                     </tbody>

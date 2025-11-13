@@ -54,10 +54,8 @@
             <tr>
                 <th>No</th>
                 <th>Nama PIKR</th>
-                <th>Alamat</th>
-                <th>Telepon</th>
-                <th>Email</th>
-                <th>Status</th>
+                <th>Deskripsi</th>
+                <th>Status SK</th>
                 <th>Jumlah Anggota</th>
                 <th>Jumlah Kegiatan</th>
             </tr>
@@ -66,11 +64,9 @@
             @foreach($pikrs as $index => $pikr)
             <tr>
                 <td>{{ $index + 1 }}</td>
-                <td>{{ $pikr->nama }}</td>
-                <td>{{ $pikr->alamat }}</td>
-                <td>{{ $pikr->telepon }}</td>
-                <td>{{ $pikr->email }}</td>
-                <td>{{ $pikr->status == 'verified' ? 'Terverifikasi' : 'Pending' }}</td>
+                <td>{{ $pikr->name }}</td>
+                <td>{{ $pikr->desc }}</td>
+                <td>{{ !empty($pikr->sk) ? 'Memiliki SK' : 'Belum Memiliki SK' }}</td>
                 <td>{{ \App\Models\Anggota::where('pikr_id', $pikr->id)->count() }}</td>
                 <td>{{ \App\Models\Kegiatan::where('pikr_id', $pikr->id)->count() }}</td>
             </tr>

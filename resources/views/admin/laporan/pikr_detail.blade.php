@@ -78,23 +78,15 @@
         <table>
             <tr>
                 <td>Nama PIKR</td>
-                <td>: {{ $pikr->nama }}</td>
+                <td>: {{ $pikr->name }}</td>
             </tr>
             <tr>
-                <td>Alamat</td>
-                <td>: {{ $pikr->alamat }}</td>
+                <td>Deskripsi</td>
+                <td>: {{ $pikr->desc }}</td>
             </tr>
             <tr>
-                <td>Telepon</td>
-                <td>: {{ $pikr->telepon }}</td>
-            </tr>
-            <tr>
-                <td>Email</td>
-                <td>: {{ $pikr->email }}</td>
-            </tr>
-            <tr>
-                <td>Status</td>
-                <td>: {{ $pikr->status == 'verified' ? 'Terverifikasi' : 'Pending' }}</td>
+                <td>Status SK</td>
+                <td>: {{ !empty($pikr->sk) ? 'Memiliki SK' : 'Belum Memiliki SK' }}</td>
             </tr>
             <tr>
                 <td>Tanggal Registrasi</td>
@@ -111,9 +103,8 @@
                     <th>No</th>
                     <th>Nama</th>
                     <th>Jenis Kelamin</th>
-                    <th>Telepon</th>
+                    <th>Tanggal Lahir</th>
                     <th>Jabatan</th>
-                    <th>Status</th>
                 </tr>
             </thead>
             <tbody>
@@ -122,9 +113,8 @@
                     <td>{{ $index + 1 }}</td>
                     <td>{{ $item->nama }}</td>
                     <td>{{ $item->jenis_kelamin }}</td>
-                    <td>{{ $item->telepon }}</td>
-                    <td>{{ $item->jabatan ? $item->jabatan->nama : '-' }}</td>
-                    <td>{{ $item->status }}</td>
+                    <td>{{ optional($item->tanggal_lahir)->format('d-m-Y') }}</td>
+                    <td>{{ $item->jabatans->count() ? $item->jabatans->pluck('nama')->join(', ') : '-' }}</td>
                 </tr>
                 @endforeach
             </tbody>
@@ -141,21 +131,25 @@
                 <tr>
                     <th>No</th>
                     <th>Nama Kegiatan</th>
-                    <th>Tanggal</th>
+                    <th>Tanggal Pelaksanaan</th>
                     <th>Lokasi</th>
-                    <th>Deskripsi</th>
-                    <th>Status</th>
+                    <th>Tujuan</th>
+                    <th>Tema</th>
+                    <th>Jumlah Peserta</th>
+                    <th>Status Laporan</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach($kegiatan as $index => $item)
                 <tr>
                     <td>{{ $index + 1 }}</td>
-                    <td>{{ $item->nama }}</td>
-                    <td>{{ $item->tanggal }}</td>
+                    <td>{{ $item->name }}</td>
+                    <td>{{ optional($item->tanggal_pelaksanaan)->format('d-m-Y') }}</td>
                     <td>{{ $item->lokasi }}</td>
-                    <td>{{ \Illuminate\Support\Str::limit($item->deskripsi, 50) }}</td>
-                    <td>{{ $item->status }}</td>
+                    <td>{{ \Illuminate\Support\Str::limit($item->tujuan, 50) }}</td>
+                    <td>{{ \Illuminate\Support\Str::limit($item->tema, 30) }}</td>
+                    <td>{{ optional($item->laporanKegiatan)->jumlah_peserta ?? '-' }}</td>
+                    <td>{{ optional($item->laporanKegiatan)->isVerified ? 'Terverifikasi' : 'Pending' }}</td>
                 </tr>
                 @endforeach
             </tbody>
@@ -178,9 +172,9 @@
                 @foreach($artikel as $index => $item)
                 <tr>
                     <td>{{ $index + 1 }}</td>
-                    <td>{{ $item->judul }}</td>
+                    <td>{{ $item->title }}</td>
                     <td>{{ $item->created_at->format('d-m-Y') }}</td>
-                    <td>{{ $item->status }}</td>
+                    <td>{{ $item->isVerified ? 'Terverifikasi' : 'Pending' }}</td>
                 </tr>
                 @endforeach
             </tbody>

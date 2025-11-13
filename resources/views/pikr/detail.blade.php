@@ -17,6 +17,9 @@
             0% { opacity: 0; transform: translateY(20px); }
             100% { opacity: 1; transform: translateY(0); }
         }
+
+        /* Hide elements marked with x-cloak until Alpine initializes */
+        [x-cloak] { display: none !important; }
     </style>
 </head>
 <body class="font-sans antialiased bg-gray-50">
@@ -73,7 +76,7 @@
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-elephant-500 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                         </svg>
-                        <span>SK: {{ Str::limit($pikr->sk, 30) }}</span>
+                        <span>SK: {{ \Illuminate\Support\Str::limit($pikr->sk, 30) }}</span>
                     </div>
                     <a href="{{ asset('storage/' . $pikr->sk) }}" download class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-white bg-elephant-600 hover:bg-elephant-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-elephant-500">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -147,7 +150,7 @@
             </div>
 
             <!-- Anggota Tab -->
-            <div x-show="activeTab === 'anggota'" class="hidden">
+            <div x-show="activeTab === 'anggota'" x-cloak>
                 <h3 class="text-xl font-bold text-gray-800 mb-4">Daftar Anggota</h3>
                 
                 @if($anggota->count() > 0)
@@ -159,7 +162,6 @@
                                 <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Jabatan</th>
                                 <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Jenis Kelamin</th>
                                 <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Tanggal Lahir</th>
-                                <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Status</th>
                             </tr>
                         </thead>
                         <tbody class="divide-y divide-gray-200 bg-white">
@@ -167,19 +169,9 @@
                             <tr>
                                 <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900">{{ $agt->nama }}</td>
                                 <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                                    @if($agt->jabatan)
-                                        {{ $agt->jabatan->nama }}
-                                    @else
-                                        -
-                                    @endif
+                                    {{ $agt->jabatans->count() ? $agt->jabatans->pluck('nama')->join(', ') : '-' }}
                                 </td>
-                                <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ $agt->jenis_kelamin }}</td>
-                                <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ \Carbon\Carbon::parse($agt->tanggal_lahir)->format('d M Y') }}</td>
-                                <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                                    <span class="px-2 py-1 text-xs font-semibold rounded-full {{ $agt->status == 'Aktif' ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800' }}">
-                                        {{ $agt->status }}
-                                    </span>
-                                </td>
+                                <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ optional($agt->tanggal_lahir)->format('d M Y') }}</td>
                             </tr>
                             @endforeach
                         </tbody>
@@ -193,7 +185,7 @@
             </div>
 
             <!-- Prestasi Tab -->
-            <div x-show="activeTab === 'prestasi'" class="hidden">
+            <div x-show="activeTab === 'prestasi'" x-cloak>
                 <h3 class="text-xl font-bold text-gray-800 mb-4">Prestasi Anggota</h3>
                 
                 @if($prestasi->count() > 0)
@@ -232,7 +224,7 @@
             </div>
 
             <!-- Kegiatan Tab -->
-            <div x-show="activeTab === 'kegiatan'" class="hidden">
+            <div x-show="activeTab === 'kegiatan'" x-cloak>
                 <h3 class="text-xl font-bold text-gray-800 mb-4">Jadwal Kegiatan</h3>
                 
                 @if($kegiatan->count() > 0)
@@ -241,7 +233,7 @@
                         <thead class="bg-gray-50">
                             <tr>
                                 <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900">Nama Kegiatan</th>
-                                <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Tanggal</th>
+                                <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Tanggal Pelaksanaan</th>
                                 <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Lokasi</th>
                                 <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Status</th>
                             </tr>
@@ -249,15 +241,16 @@
                         <tbody class="divide-y divide-gray-200 bg-white">
                             @foreach($kegiatan as $keg)
                             <tr>
-                                <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900">{{ $keg->nama }}</td>
-                                <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ \Carbon\Carbon::parse($keg->tanggal)->format('d M Y') }}</td>
+                                <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900">{{ $keg->name }}</td>
+                                <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ optional($keg->tanggal_pelaksanaan)->format('d M Y') }}</td>
                                 <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ $keg->lokasi }}</td>
                                 <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
                                     @php
                                         $now = \Carbon\Carbon::now();
-                                        $kegDate = \Carbon\Carbon::parse($keg->tanggal);
-                                        $status = $now->gt($kegDate) ? 'Selesai' : 'Akan Datang';
-                                        $statusClass = $now->gt($kegDate) ? 'bg-gray-100 text-gray-800' : 'bg-blue-100 text-blue-800';
+                                        $kegDate = $keg->tanggal_pelaksanaan; // cast to Carbon or null
+                                        $isScheduled = $kegDate instanceof \Carbon\Carbon;
+                                        $status = $isScheduled ? ($now->gt($kegDate) ? 'Selesai' : 'Akan Datang') : 'Tidak Dijadwalkan';
+                                        $statusClass = $isScheduled ? ($now->gt($kegDate) ? 'bg-gray-100 text-gray-800' : 'bg-blue-100 text-blue-800') : 'bg-gray-100 text-gray-800';
                                     @endphp
                                     <span class="px-2 py-1 text-xs font-semibold rounded-full {{ $statusClass }}">
                                         {{ $status }}
@@ -279,6 +272,8 @@
 </div>
     </main>
     
+    <!-- Alpine.js for interactive tabs -->
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <script>
         document.addEventListener('alpine:init', () => {
             // Inisialisasi Alpine.js

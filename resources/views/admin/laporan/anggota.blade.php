@@ -54,21 +54,19 @@
                 <th>Nama PIKR</th>
                 <th>Nama Anggota</th>
                 <th>Jenis Kelamin</th>
-                <th>Telepon</th>
+                <th>Tanggal Lahir</th>
                 <th>Jabatan</th>
-                <th>Status</th>
             </tr>
         </thead>
         <tbody>
             @foreach($anggota as $index => $item)
             <tr>
                 <td>{{ $index + 1 }}</td>
-                <td>{{ $item->pikr->nama }}</td>
+                <td>{{ $item->pikr->name }}</td>
                 <td>{{ $item->nama }}</td>
                 <td>{{ $item->jenis_kelamin }}</td>
-                <td>{{ $item->telepon }}</td>
-                <td>{{ $item->jabatan ? $item->jabatan->nama : '-' }}</td>
-                <td>{{ $item->status }}</td>
+                <td>{{ optional($item->tanggal_lahir)->format('d-m-Y') }}</td>
+                <td>{{ $item->jabatans->count() ? $item->jabatans->pluck('nama')->join(', ') : '-' }}</td>
             </tr>
             @endforeach
         </tbody>
