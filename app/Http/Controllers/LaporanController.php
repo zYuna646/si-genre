@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Pikr;
 use App\Models\Anggota;
 use App\Models\Kegiatan;
+use App\Models\Jabatan;
 use App\Models\Artikel;
 use Illuminate\Http\Request;
 use PDF;
@@ -26,17 +27,18 @@ class LaporanController extends Controller
     public function pikrDetailPdf($id)
     {
         $pikr = Pikr::findOrFail($id);
-        $anggota = Anggota::where('pikr_id', $id)->get();
-        $kegiatan = Kegiatan::where('pikr_id', $id)->get();
+        $anggota = Anggota::where('pikr_id', $id)->with('jabatans')->get();
+        $kegiatan = Kegiatan::where('pikr_id', $id)->with('laporanKegiatan')->get();
         $artikel = Artikel::where('pikr_id', $id)->get();
-        
-        $pdf = PDF::loadView('admin.laporan.pikr_detail', compact('pikr', 'anggota', 'kegiatan', 'artikel'));
-        return $pdf->download('laporan-pikr-detail-'.$pikr->nama.'.pdf');
+        $jabatans = Jabatan::where('pikr_id', $id)->with(['anggotas', 'parent'])->get();
+
+        $pdf = PDF::loadView('admin.laporan.pikr_detail', compact('pikr', 'anggota', 'kegiatan', 'artikel', 'jabatans'));
+        return $pdf->download('laporan-pikr-detail-'.$pikr->name.'.pdf');
     }
 
     public function anggotaPdf()
     {
-        $anggota = Anggota::with('pikr')->get();
+        $anggota = Anggota::with(['pikr', 'jabatans'])->get();
         $pdf = PDF::loadView('admin.laporan.anggota', compact('anggota'));
         return $pdf->download('laporan-anggota.pdf');
     }

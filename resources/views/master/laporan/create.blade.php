@@ -67,12 +67,6 @@
                     <input type="file" name="dokumentasi_foto" id="dokumentasi_foto" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" accept="image/*">
                     <p class="text-sm text-gray-500 mt-1">Upload foto dokumentasi kegiatan (JPG, PNG)</p>
                 </div>
-                
-                <div class="mb-4">
-                    <label for="dokumentasi_video" class="block text-gray-700 font-medium mb-2">Video Kegiatan (Opsional)</label>
-                    <input type="file" name="dokumentasi_video" id="dokumentasi_video" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" accept="video/*">
-                    <p class="text-sm text-gray-500 mt-1">Upload video dokumentasi kegiatan (MP4, MOV)</p>
-                </div>
             </div>
 
             <!-- Hasil & Capaian Section -->

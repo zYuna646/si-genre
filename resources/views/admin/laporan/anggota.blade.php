@@ -66,7 +66,7 @@
                 <td>{{ $item->nama }}</td>
                 <td>{{ $item->jenis_kelamin }}</td>
                 <td>{{ optional($item->tanggal_lahir)->format('d-m-Y') }}</td>
-                <td>{{ $item->jabatans->count() ? $item->jabatans->pluck('nama')->join(', ') : '-' }}</td>
+                <td>{{ $item->jabatans->count() ? $item->jabatans->pluck('name')->join(', ') : '-' }}</td>
             </tr>
             @endforeach
         </tbody>

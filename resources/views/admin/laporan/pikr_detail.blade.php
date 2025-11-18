@@ -114,14 +114,51 @@
                     <td>{{ $item->nama }}</td>
                     <td>{{ $item->jenis_kelamin }}</td>
                     <td>{{ optional($item->tanggal_lahir)->format('d-m-Y') }}</td>
-                    <td>{{ $item->jabatans->count() ? $item->jabatans->pluck('nama')->join(', ') : '-' }}</td>
+                    <td>{{ $item->jabatans->count() ? $item->jabatans->pluck('name')->join(', ') : '-' }}</td>
                 </tr>
                 @endforeach
             </tbody>
         </table>
         <p>Total Anggota: {{ $anggota->count() }}</p>
     </div>
-    
+
+    <div class="section">
+        <h2>STRUKTUR JABATAN</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>No</th>
+                    <th>Nama Jabatan</th>
+                    <th>Anggota</th>
+                    <th>Deskripsi</th>
+                    <th>Jabatan Atasan</th>
+                </tr>
+            </thead>
+            <tbody>
+                @forelse($jabatans as $index => $jabatan)
+                <tr>
+                    <td>{{ $index + 1 }}</td>
+                    <td>{{ $jabatan->name }}</td>
+                    <td>
+                        @if($jabatan->anggotas->count() > 0)
+                            {{ $jabatan->anggotas->pluck('nama')->join(', ') }}
+                        @else
+                            -
+                        @endif
+                    </td>
+                    <td>{{ $jabatan->desc ?? '-' }}</td>
+                    <td>{{ optional($jabatan->parent)->name ?? '-' }}</td>
+                </tr>
+                @empty
+                <tr>
+                    <td colspan="5">Tidak ada data jabatan</td>
+                </tr>
+                @endforelse
+            </tbody>
+        </table>
+        <p>Total Jabatan: {{ $jabatans->count() }}</p>
+    </div>
+
     <div class="page-break"></div>
     
     <div class="section">

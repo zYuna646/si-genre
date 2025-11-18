@@ -107,44 +107,35 @@
                 </nav>
             </div>
 
-            <!-- Struktur Organisasi Tab -->
+            <!-- Struktur Jabatan Tab -->
             <div x-show="activeTab === 'struktur'">
-                <h3 class="text-xl font-bold text-gray-800 mb-4">Struktur Organisasi</h3>
+                <h3 class="text-xl font-bold text-gray-800 mb-4">Struktur Jabatan</h3>
                 
                 @if($jabatan->count() > 0)
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     @foreach($jabatan as $jbt)
                     <div class="bg-white border border-gray-200 rounded-lg shadow-sm overflow-hidden hover:shadow-md transition-shadow duration-300">
                         <div class="p-5">
-                            <h4 class="text-lg font-semibold text-gray-900">{{ $jbt->nama }}</h4>
-                            <p class="mt-2 text-gray-600">{{ $jbt->deskripsi }}</p>
-                            
-                            @if($jbt->anggota)
-                            <div class="mt-4 pt-4 border-t border-gray-100">
-                                <div class="flex items-center">
-                                    <div class="flex-shrink-0">
-                                        <div class="h-10 w-10 rounded-full bg-elephant-100 flex items-center justify-center text-elephant-600 font-semibold">
-                                            {{ substr($jbt->anggota->nama, 0, 1) }}
-                                        </div>
-                                    </div>
-                                    <div class="ml-3">
-                                        <p class="text-sm font-medium text-gray-900">{{ $jbt->anggota->nama }}</p>
-                                        <p class="text-xs text-gray-500">Sejak {{ \Carbon\Carbon::parse($jbt->created_at)->format('d M Y') }}</p>
-                                    </div>
-                                </div>
+                            <h4 class="text-lg font-semibold text-gray-900">{{ $jbt->name }}</h4>
+                            <p class="mt-2 text-gray-600">{{ $jbt->desc ?? '-' }}</p>
+                            <div class="mt-3 text-sm">
+                                <span class="font-semibold">Anggota:</span>
+                                @if($jbt->anggotas && $jbt->anggotas->count() > 0)
+                                    {{ $jbt->anggotas->pluck('nama')->join(', ') }}
+                                @else
+                                    -
+                                @endif
                             </div>
-                            @else
-                            <div class="mt-4 pt-4 border-t border-gray-100">
-                                <p class="text-sm text-gray-500 italic">Belum ada anggota</p>
+                            <div class="mt-1 text-sm text-gray-600">
+                                <span class="font-semibold">Jabatan Atasan:</span> {{ optional($jbt->parent)->name ?? '-' }}
                             </div>
-                            @endif
                         </div>
                     </div>
                     @endforeach
                 </div>
                 @else
                 <div class="bg-gray-50 rounded-lg p-6 text-center">
-                    <p class="text-gray-500">Belum ada data struktur organisasi</p>
+                    <p class="text-gray-500">Belum ada data struktur jabatan</p>
                 </div>
                 @endif
             </div>
@@ -169,8 +160,9 @@
                             <tr>
                                 <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900">{{ $agt->nama }}</td>
                                 <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                                    {{ $agt->jabatans->count() ? $agt->jabatans->pluck('nama')->join(', ') : '-' }}
+                                    {{ $agt->jabatans->count() ? $agt->jabatans->pluck('name')->join(', ') : '-' }}
                                 </td>
+                                <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ $agt->jenis_kelamin }}</td>
                                 <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ optional($agt->tanggal_lahir)->format('d M Y') }}</td>
                             </tr>
                             @endforeach

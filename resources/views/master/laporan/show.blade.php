@@ -73,16 +73,6 @@
                 <img src="{{ asset('storage/' . $laporan->dokumentasi_foto) }}" alt="Foto Kegiatan" class="max-w-full h-auto rounded-lg shadow-md">
             </div>
             @endif
-            
-            @if($laporan->dokumentasi_video)
-            <div class="mb-4">
-                <p class="text-gray-600 font-medium mb-2">Video Kegiatan:</p>
-                <video controls class="w-full max-w-2xl rounded-lg shadow-md">
-                    <source src="{{ asset('storage/' . $laporan->dokumentasi_video) }}" type="video/mp4">
-                    Browser Anda tidak mendukung tag video.
-                </video>
-            </div>
-            @endif
         </div>
 
         <!-- Hasil & Capaian Section -->

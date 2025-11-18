@@ -95,8 +95,8 @@
     </div>
     
     <div class="mt-6">
-        <a href="{{ route('master.pikr.show', $pikr->id) }}" class="px-4 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600 transition-colors duration-200">
-            Kembali ke Detail PIKR
+        <a href="{{ url()->previous() }}" class="px-4 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600 transition-colors duration-200">
+            Kembali
         </a>
     </div>
 </div>
