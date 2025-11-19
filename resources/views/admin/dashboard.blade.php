@@ -83,6 +83,16 @@
                                                         </button>
                                                     </form>
                                                     @endif
+                                                    @if(auth()->user()->getRoleNames()[0] === 'admin' && !$artikel->isVerified)
+                                                    <form action="{{ route('master.artikel.reject', $artikel->id) }}" method="POST" class="inline ml-2">
+                                                        @csrf
+                                                        @method('PATCH')
+                                                        <input type="text" name="msg" class="text-sm border rounded px-2 py-1" placeholder="Alasan penolakan" required>
+                                                        <button type="submit" class="text-red-600 hover:text-red-800" title="Tolak Artikel">
+                                                            Tolak
+                                                        </button>
+                                                    </form>
+                                                    @endif
                                                 </td>
                                             </tr>
                                         @empty

@@ -44,6 +44,8 @@ class ArtikelController extends Controller
             'cover' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
             'pikr_id' => 'required|exists:pikrs,id',
             'isVerified' => 'nullable|boolean',
+            'isReject' => 'nullable|boolean',
+            'msg' => 'nullable|string',
         ]);
 
         $data = $request->all();
@@ -54,8 +56,13 @@ class ArtikelController extends Controller
             $data['cover'] = $coverPath;
         }
 
-        // Set default value for isVerified
+        // Set default values for verification and rejection
         $data['isVerified'] = $request->has('isVerified') ? true : false;
+        $data['isReject'] = $request->has('isReject') ? true : false;
+        if (!$data['isReject']) {
+            // Clear message if not rejected
+            $data['msg'] = null;
+        }
 
         Artikel::create($data);
 
@@ -96,6 +103,7 @@ class ArtikelController extends Controller
             'cover' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
             'pikr_id' => 'required|exists:pikrs,id',
             'isVerified' => 'nullable|boolean',
+            'msg' => 'nullable|string',
         ]);
 
         $data = $request->all();
@@ -111,8 +119,14 @@ class ArtikelController extends Controller
             $data['cover'] = $coverPath;
         }
 
-        // Set value for isVerified
+        // Set value for isVerified from checkbox (if any)
         $data['isVerified'] = $request->has('isVerified') ? true : false;
+
+        // If article was previously rejected, editing resets status to pending (not verified, not rejected)
+        if ($artikel->isReject) {
+            $data['isReject'] = false;
+            $data['isVerified'] = false;
+        }
 
         $artikel->update($data);
 
@@ -150,5 +164,24 @@ class ArtikelController extends Controller
         
         return redirect()->route('master.artikel.index', ['pikr_id' => $artikel->pikr_id])
             ->with('success', 'Artikel berhasil diverifikasi');
+    }
+
+    /**
+     * Reject the specified article with a message.
+     */
+    public function reject(Request $request, Artikel $artikel)
+    {
+        $request->validate([
+            'msg' => 'required|string'
+        ]);
+
+        $artikel->update([
+            'isReject' => true,
+            'isVerified' => false,
+            'msg' => $request->input('msg')
+        ]);
+
+        return redirect()->route('master.artikel.index', ['pikr_id' => $artikel->pikr_id])
+            ->with('success', 'Artikel berhasil ditolak dengan alasan.');
     }
 }

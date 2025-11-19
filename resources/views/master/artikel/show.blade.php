@@ -46,6 +46,10 @@
                             <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
                                 Terverifikasi
                             </span>
+                        @elseif($artikel->isReject)
+                            <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-old-brick-100 text-old-brick-800">
+                                Ditolak
+                            </span>
                         @else
                             <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">
                                 Belum Terverifikasi
@@ -53,6 +57,12 @@
                         @endif
                     </dd>
                 </div>
+                @if($artikel->isReject && $artikel->msg)
+                <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                    <dt class="text-sm font-medium text-gray-500">Alasan Penolakan</dt>
+                    <dd class="mt-1 text-sm text-old-brick-700 sm:mt-0 sm:col-span-2">{{ $artikel->msg }}</dd>
+                </div>
+                @endif
                 <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                     <dt class="text-sm font-medium text-gray-500">Tanggal Dibuat</dt>
                     <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{{ $artikel->created_at->format('d F Y, H:i') }}</dd>

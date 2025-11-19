@@ -196,6 +196,107 @@
         </div>
     </section>
 
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const form = document.getElementById('pikr-search-form');
+            const grid = document.getElementById('pikr-grid');
+            const pagination = document.getElementById('pikr-pagination');
+            const input = form.querySelector('input[name="q"]');
+            const endpoint = grid.getAttribute('data-endpoint');
+
+            async function fetchPikrs(page = 1) {
+                try {
+                    const params = new URLSearchParams({ q: input.value || '', page: page });
+                    const res = await fetch(`${endpoint}?${params.toString()}`, { headers: { 'Accept': 'application/json' } });
+                    if (!res.ok) throw new Error('Gagal memuat data PIKR');
+                    const data = await res.json();
+                    renderCards(data.items);
+                    renderPagination(data.current_page, data.last_page);
+                } catch (err) {
+                    console.error(err);
+                }
+            }
+
+            function renderCards(items) {
+                grid.innerHTML = items.map(item => {
+                    const logo = item.logo_url
+                        ? `<img src="${item.logo_url}" alt="${escapeHtml(item.name)}" class="h-full w-full object-cover">`
+                        : `<div class="text-4xl font-bold" style="color: var(--brand)">${escapeHtml((item.name || '').slice(0,2))}</div>`;
+                    return `
+                    <div class="bg-white rounded-xl shadow-lg overflow-hidden transform transition-all duration-300 hover:-translate-y-2 hover:shadow-xl reveal">
+                        <div class="h-3" style="background-color: var(--brand)"></div>
+                        <div class="h-48 flex items-center justify-center" style="background-color: rgba(103,205,242,0.08)">${logo}</div>
+                        <div class="p-6">
+                            <div class="flex justify-between items-start mb-4">
+                                <h3 class="text-xl font-semibold text-gray-900">${escapeHtml(item.name || '')}</h3>
+                                <span class="px-2 py-1 brand-pill text-xs font-semibold rounded-full">Aktif</span>
+                            </div>
+                            <p class="text-gray-600 mb-4 line-clamp-2">${escapeHtml(item.desc || '')}</p>
+                            <div class="space-y-3 mb-6"></div>
+                            <a href="${item.detail_url}" class="inline-flex items-center px-4 py-2 brand-btn text-white font-medium rounded-lg transition-all duration-300 shadow-md hover:shadow-lg" style="background-color: var(--brand); border: 1px solid var(--brand-darker)">
+                                <span>Detail</span>
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                                </svg>
+                            </a>
+                        </div>
+                    </div>`;
+                }).join('');
+            }
+
+            function renderPagination(current, last) {
+                const prevPage = Math.max(1, current - 1);
+                const nextPage = Math.min(last, current + 1);
+                const pageLinks = Array.from({ length: last }, (_, i) => i + 1).map(i => {
+                    const active = i === current;
+                    const cls = active ? 'brand-btn text-white' : 'bg-white text-gray-700 hover:bg-gray-50';
+                    const style = active ? 'background-color: var(--brand); border: 1px solid var(--brand-darker)' : 'border-color: var(--brand)';
+                    return `<a href="#" data-page="${i}" class="relative inline-flex items-center px-4 py-2 border text-sm font-medium ${cls}" style="${style}">${i}</a>`;
+                }).join('');
+                pagination.innerHTML = `
+                    <nav class="inline-flex rounded-md shadow-sm -space-x-px" aria-label="Pagination">
+                        <a href="#" data-page="${prevPage}" class="relative inline-flex items-center px-2 py-2 rounded-l-md border bg-white text-sm font-medium text-gray-500 hover:bg-gray-50" style="border-color: var(--brand)">
+                            <span class="sr-only">Previous</span>
+                            <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                <path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd" />
+                            </svg>
+                        </a>
+                        ${pageLinks}
+                        <a href="#" data-page="${nextPage}" class="relative inline-flex items-center px-2 py-2 rounded-r-md border bg-white text-sm font-medium text-gray-500 hover:bg-gray-50" style="border-color: var(--brand)">
+                            <span class="sr-only">Next</span>
+                            <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
+                            </svg>
+                        </a>
+                    </nav>`;
+
+                // Attach click handler for new links
+                pagination.querySelectorAll('a[data-page]').forEach(a => {
+                    a.addEventListener('click', function (e) {
+                        e.preventDefault();
+                        const page = parseInt(this.dataset.page, 10) || 1;
+                        fetchPikrs(page);
+                        const params = new URLSearchParams({ q: input.value || '', page });
+                        history.replaceState({}, '', `?${params.toString()}#pikr`);
+                    });
+                });
+            }
+
+            function escapeHtml(str) {
+                return (str || '').replace(/[&<>"']/g, function (c) {
+                    return ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c] || c;
+                });
+            }
+
+            form.addEventListener('submit', function (e) {
+                e.preventDefault();
+                fetchPikrs(1);
+                const params = new URLSearchParams({ q: input.value || '', page: 1 });
+                history.replaceState({}, '', `?${params.toString()}#pikr`);
+            });
+        });
+    </script>
+
     <!-- Tentang Section -->
     <section id="tentang" class="py-16 bg-white relative overflow-hidden">
         <!-- Background decoration -->
@@ -355,12 +456,24 @@
                 <div class="w-24 h-1 mx-auto mt-6" style="background-color: var(--brand)"></div>
             </div>
             
+            @php
+                $search = request()->query('q');
+                $pikrQuery = \App\Models\Pikr::query();
+                if ($search) {
+                    $pikrQuery->where(function($q) use ($search) {
+                        $q->where('name', 'like', '%'.$search.'%')
+                          ->orWhere('desc', 'like', '%'.$search.'%');
+                    });
+                }
+                $pikrList = $pikrQuery->latest()->paginate(6);
+            @endphp
+            
             <!-- Search bar -->
-            <div class="mb-8 bg-white p-4 rounded-lg shadow-md reveal">
+            <form id="pikr-search-form" action="{{ url('#pikr') }}" method="GET" class="mb-8 bg-white p-4 rounded-lg shadow-md reveal">
                 <div class="flex flex-col md:flex-row md:items-center md:space-x-4">
                     <div class="flex-1 mb-4 md:mb-0">
                         <div class="relative">
-                            <input type="text" placeholder="Cari PIKR..." class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-brand focus:border-brand" style="--tw-ring-color: var(--brand); border-color: var(--brand)">
+                            <input type="text" name="q" value="{{ request('q') }}" placeholder="Cari PIKR..." class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-brand focus:border-brand" style="--tw-ring-color: var(--brand); border-color: var(--brand)">
                             <div class="absolute left-3 top-2.5 text-gray-400">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
@@ -369,15 +482,15 @@
                         </div>
                     </div>
                     <div class="flex space-x-2">
-                        <button class="px-4 py-2 brand-btn text-white rounded-lg transition-all duration-300" style="background-color: var(--brand); border: 1px solid var(--brand-darker)">
+                        <button type="submit" class="px-4 py-2 brand-btn text-white rounded-lg transition-all duration-300" style="background-color: var(--brand); border: 1px solid var(--brand-darker)">
                             Cari
                         </button>
                     </div>
                 </div>
-            </div>
+            </form>
             
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                @foreach(\App\Models\Pikr::take(6)->get() as $pikr)
+            <div id="pikr-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" data-endpoint="{{ route('landing.pikr.list') }}">
+                @foreach($pikrList as $pikr)
                 <div class="bg-white rounded-xl shadow-lg overflow-hidden transform transition-all duration-300 hover:-translate-y-2 hover:shadow-xl reveal">
                     <div class="h-3" style="background-color: var(--brand)"></div>
                     <div class="h-48 flex items-center justify-center" style="background-color: rgba(103,205,242,0.08)">
@@ -411,18 +524,24 @@
             </div>
             
             <!-- Pagination -->
-            <div class="mt-12 flex justify-center reveal">
+            <div id="pikr-pagination" class="mt-12 flex justify-center reveal">
+                @php
+                    $current = $pikrList->currentPage();
+                    $last = $pikrList->lastPage();
+                    $prevPage = max(1, $current - 1);
+                    $nextPage = min($last, $current + 1);
+                @endphp
                 <nav class="inline-flex rounded-md shadow-sm -space-x-px" aria-label="Pagination">
-                    <a href="#" class="relative inline-flex items-center px-2 py-2 rounded-l-md border bg-white text-sm font-medium text-gray-500 hover:bg-gray-50" style="border-color: var(--brand)">
+                    <a href="{{ url('#pikr') }}?q={{ urlencode($search) }}&page={{ $prevPage }}" data-page="{{ $prevPage }}" class="relative inline-flex items-center px-2 py-2 rounded-l-md border bg-white text-sm font-medium text-gray-500 hover:bg-gray-50" style="border-color: var(--brand)">
                         <span class="sr-only">Previous</span>
                         <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                             <path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd" />
                         </svg>
                     </a>
-                    <a href="#" class="relative inline-flex items-center px-4 py-2 border text-sm font-medium" style="background-color: rgba(103,205,242,0.08); color: var(--brand); border-color: var(--brand);">1</a>
-                    <a href="#" class="relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50">2</a>
-                    <a href="#" class="relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50">3</a>
-                    <a href="#" class="relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50">
+                    @for ($i = 1; $i <= $last; $i++)
+                        <a href="{{ url('#pikr') }}?q={{ urlencode($search) }}&page={{ $i }}" data-page="{{ $i }}" class="relative inline-flex items-center px-4 py-2 border text-sm font-medium {{ $i == $current ? 'brand-btn text-white' : 'bg-white text-gray-700 hover:bg-gray-50' }}" style="{{ $i == $current ? 'background-color: var(--brand); border: 1px solid var(--brand-darker)' : 'border-color: var(--brand)' }}">{{ $i }}</a>
+                    @endfor
+                    <a href="{{ url('#pikr') }}?q={{ urlencode($search) }}&page={{ $nextPage }}" data-page="{{ $nextPage }}" class="relative inline-flex items-center px-2 py-2 rounded-r-md border bg-white text-sm font-medium text-gray-500 hover:bg-gray-50" style="border-color: var(--brand)">
                         <span class="sr-only">Next</span>
                         <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                             <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />

@@ -7,6 +7,9 @@ Route::get('/', function () {
     return view('welcome');
 })->name('welcome');
 
+// Public AJAX endpoint for landing PIKR listing
+Route::get('/pikr/list', [\App\Http\Controllers\LandingPikrController::class, 'index'])->name('landing.pikr.list');
+
 // PIKR Detail Route
 Route::get('/pikr/{id}', [\App\Http\Controllers\PikrDetailController::class, 'show'])->name('pikr.detail');
 
@@ -117,6 +120,7 @@ Route::middleware('auth')->group(function () {
         Route::put('artikel/{artikel}', [\App\Http\Controllers\ArtikelController::class, 'update'])->name('artikel.update');
         Route::delete('artikel/{artikel}', [\App\Http\Controllers\ArtikelController::class, 'destroy'])->name('artikel.destroy');
         Route::patch('artikel/{artikel}/verify', [\App\Http\Controllers\ArtikelController::class, 'verify'])->name('artikel.verify');
+        Route::patch('artikel/{artikel}/reject', [\App\Http\Controllers\ArtikelController::class, 'reject'])->name('artikel.reject');
         
     });
 });

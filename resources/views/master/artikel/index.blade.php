@@ -50,6 +50,17 @@
                             <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
                                 Terverifikasi
                             </span>
+                        @elseif($artikel->isReject)
+                            <div>
+                                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-old-brick-100 text-old-brick-800">
+                                    Ditolak
+                                </span>
+                                @if(!empty($artikel->msg))
+                                    <div class="mt-1 text-xs text-old-brick-700 italic whitespace-normal">
+                                        Alasan: {{ $artikel->msg }}
+                                    </div>
+                                @endif
+                            </div>
                         @else
                             <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">
                                 Belum Terverifikasi
@@ -72,13 +83,25 @@
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
                                 </svg>
                             </a>
-                            @if(auth()->user()->getRoleNames()[0] === 'admin' && !$artikel->isVerified)
+                            @if(auth()->user()->getRoleNames()[0] === 'admin' && !$artikel->isVerified && !$artikel->isReject)
                             <form action="{{ route('master.artikel.verify', $artikel->id) }}" method="POST" class="inline">
                                 @csrf
                                 @method('PATCH')
                                 <button type="submit" class="text-green-600 hover:text-green-900" title="Verifikasi Artikel">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                                    </svg>
+                                </button>
+                            </form>
+                            @endif
+                            @if(auth()->user()->getRoleNames()[0] === 'admin' && !$artikel->isVerified && !$artikel->isReject)
+                            <form action="{{ route('master.artikel.reject', $artikel->id) }}" method="POST" class="inline">
+                                @csrf
+                                @method('PATCH')
+                                <input type="text" name="msg" class="text-sm border rounded px-2 py-1" placeholder="Alasan penolakan" required>
+                                <button type="submit" class="text-old-brick-600 hover:text-old-brick-900" title="Tolak Artikel">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                                     </svg>
                                 </button>
                             </form>

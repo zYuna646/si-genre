@@ -10,10 +10,11 @@ class Artikel extends Model
     use HasFactory;
 
     protected $table = 'artikels';
-    protected $fillable = ['title', 'content', 'cover', 'pikr_id', 'isVerified'];
+    protected $fillable = ['title', 'content', 'cover', 'pikr_id', 'isVerified', 'isReject', 'msg'];
 
     protected $casts = [
         'isVerified' => 'boolean',
+        'isReject' => 'boolean',
     ];
 
     public function pikr()
