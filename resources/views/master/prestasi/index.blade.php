@@ -82,7 +82,12 @@
     </div>
     
     <div class="mt-6">
-        <a href="{{ url()->previous() }}" class="px-4 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600 transition-colors duration-200">
+        @php
+            $backUrl = auth()->user()->hasRole('admin')
+                ? route('master.pikr.index')
+                : (auth()->user()->hasRole('admin_pikr') ? route('dashboard') : url()->previous());
+        @endphp
+        <a href="{{ $backUrl }}" class="px-4 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600 transition-colors duration-200">
             Kembali
         </a>
     </div>

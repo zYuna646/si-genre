@@ -7,6 +7,7 @@
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=instrument-sans:400,500,600" rel="stylesheet" />
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.css" />
     <style>
         /* Animasi untuk elemen-elemen landing page */
         @keyframes float {
@@ -101,6 +102,7 @@
                 <nav class="hidden md:flex items-center space-x-8">
                     <a href="#beranda" class="text-gray-900 px-3 py-2 text-sm font-medium hover-brand">Beranda</a>
                     <a href="#tentang" class="text-gray-900 px-3 py-2 text-sm font-medium hover-brand">Tentang</a>
+                    <a href="#kalender" class="text-gray-900 px-3 py-2 text-sm font-medium hover-brand">Kalender</a>
                     <a href="#pikr" class="text-gray-900 px-3 py-2 text-sm font-medium hover-brand">PIKR</a>
                     <a href="#artikel" class="text-gray-900 px-3 py-2 text-sm font-medium hover-brand">Artikel</a>
                     <a href="#edukasi" class="text-gray-900 px-3 py-2 text-sm font-medium hover-brand">Edukasi</a>
@@ -120,6 +122,7 @@
             <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
                 <a href="#beranda" class="block px-3 py-2 rounded-md text-base font-medium text-gray-900 hover:bg-gray-50">Beranda</a>
                 <a href="#tentang" class="block px-3 py-2 rounded-md text-base font-medium text-gray-900 hover:bg-gray-50">Tentang</a>
+                <a href="#kalender" class="block px-3 py-2 rounded-md text-base font-medium text-gray-900 hover:bg-gray-50">Kalender</a>
                 <a href="#pikr" class="block px-3 py-2 rounded-md text-base font-medium text-gray-900 hover:bg-gray-50">PIKR</a>
                 <a href="#artikel" class="block px-3 py-2 rounded-md text-base font-medium text-gray-900 hover:bg-gray-50">Artikel</a>
                 <a href="#edukasi" class="block px-3 py-2 rounded-md text-base font-medium text-gray-900 hover:bg-gray-50">Edukasi</a>
@@ -247,39 +250,32 @@
             function renderPagination(current, last) {
                 const prevPage = Math.max(1, current - 1);
                 const nextPage = Math.min(last, current + 1);
+                const buildHref = (p) => {
+                    const params = new URLSearchParams({ q: input.value || '', page: p });
+                    return `?${params.toString()}#pikr`;
+                };
                 const pageLinks = Array.from({ length: last }, (_, i) => i + 1).map(i => {
                     const active = i === current;
                     const cls = active ? 'brand-btn text-white' : 'bg-white text-gray-700 hover:bg-gray-50';
                     const style = active ? 'background-color: var(--brand); border: 1px solid var(--brand-darker)' : 'border-color: var(--brand)';
-                    return `<a href="#" data-page="${i}" class="relative inline-flex items-center px-4 py-2 border text-sm font-medium ${cls}" style="${style}">${i}</a>`;
+                    return `<a href="${buildHref(i)}" data-page="${i}" class="relative inline-flex items-center px-4 py-2 border text-sm font-medium ${cls}" style="${style}">${i}</a>`;
                 }).join('');
                 pagination.innerHTML = `
                     <nav class="inline-flex rounded-md shadow-sm -space-x-px" aria-label="Pagination">
-                        <a href="#" data-page="${prevPage}" class="relative inline-flex items-center px-2 py-2 rounded-l-md border bg-white text-sm font-medium text-gray-500 hover:bg-gray-50" style="border-color: var(--brand)">
+                        <a href="${buildHref(prevPage)}" data-page="${prevPage}" class="relative inline-flex items-center px-2 py-2 rounded-l-md border bg-white text-sm font-medium text-gray-500 hover:bg-gray-50" style="border-color: var(--brand)">
                             <span class="sr-only">Previous</span>
                             <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                                 <path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd" />
                             </svg>
                         </a>
                         ${pageLinks}
-                        <a href="#" data-page="${nextPage}" class="relative inline-flex items-center px-2 py-2 rounded-r-md border bg-white text-sm font-medium text-gray-500 hover:bg-gray-50" style="border-color: var(--brand)">
+                        <a href="${buildHref(nextPage)}" data-page="${nextPage}" class="relative inline-flex items-center px-2 py-2 rounded-r-md border bg-white text-sm font-medium text-gray-500 hover:bg-gray-50" style="border-color: var(--brand)">
                             <span class="sr-only">Next</span>
                             <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                                 <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
                             </svg>
                         </a>
                     </nav>`;
-
-                // Attach click handler for new links
-                pagination.querySelectorAll('a[data-page]').forEach(a => {
-                    a.addEventListener('click', function (e) {
-                        e.preventDefault();
-                        const page = parseInt(this.dataset.page, 10) || 1;
-                        fetchPikrs(page);
-                        const params = new URLSearchParams({ q: input.value || '', page });
-                        history.replaceState({}, '', `?${params.toString()}#pikr`);
-                    });
-                });
             }
 
             function escapeHtml(str) {
@@ -294,8 +290,117 @@
                 const params = new URLSearchParams({ q: input.value || '', page: 1 });
                 history.replaceState({}, '', `?${params.toString()}#pikr`);
             });
+
+            // Delegated click handler for any pagination link
+            pagination.addEventListener('click', function (e) {
+                const link = e.target.closest('a[data-page]');
+                if (!link) return;
+                e.preventDefault();
+                const page = parseInt(link.dataset.page, 10) || 1;
+                fetchPikrs(page);
+                const params = new URLSearchParams({ q: input.value || '', page });
+                history.replaceState({}, '', `?${params.toString()}#pikr`);
+            });
+
+            // Initial load: sync with URL params and fetch
+            const url = new URL(window.location.href);
+            const qParam = url.searchParams.get('q') || '';
+            const pageParam = parseInt(url.searchParams.get('page') || '1', 10);
+            if (qParam) input.value = qParam;
+            fetchPikrs(isNaN(pageParam) ? 1 : pageParam);
+
+            // ===== Kalender Kegiatan (FullCalendar) =====
+            const calendarEl = document.getElementById('landing-calendar');
+            if (calendarEl) {
+                const calendar = new FullCalendar.Calendar(calendarEl, {
+                    initialView: 'dayGridMonth',
+                    headerToolbar: {
+                        left: 'prev,next today',
+                        center: 'title',
+                        right: 'dayGridMonth,timeGridWeek,listMonth'
+                    },
+                    locale: 'id',
+                    height: 'auto',
+                    events: [],
+                    eventClick: function (info) {
+                        if (info.event.url) {
+                            window.location.href = info.event.url;
+                            info.jsEvent.preventDefault();
+                        }
+                    },
+                    eventContent: function (arg) {
+                        const props = arg.event.extendedProps || {};
+                        const container = document.createElement('div');
+                        container.className = 'fc-event-custom flex items-center space-x-2';
+
+                        const logoWrap = document.createElement('span');
+                        logoWrap.style.display = 'inline-flex';
+                        logoWrap.style.width = '16px';
+                        logoWrap.style.height = '16px';
+                        logoWrap.style.borderRadius = '9999px';
+                        logoWrap.style.overflow = 'hidden';
+                        logoWrap.style.border = '1px solid var(--brand-darker)';
+
+                        if (props.logo_url) {
+                            const img = document.createElement('img');
+                            img.src = props.logo_url;
+                            img.alt = (props.pikr_name || 'PIKR');
+                            img.style.width = '100%';
+                            img.style.height = '100%';
+                            img.style.objectFit = 'cover';
+                            logoWrap.appendChild(img);
+                        } else {
+                            logoWrap.style.backgroundColor = 'rgba(103,205,242,0.15)';
+                            logoWrap.style.color = '#0a4e68';
+                            logoWrap.style.fontSize = '10px';
+                            logoWrap.style.alignItems = 'center';
+                            logoWrap.style.justifyContent = 'center';
+                            logoWrap.style.display = 'inline-flex';
+                            logoWrap.textContent = ((props.pikr_name || '').slice(0, 2) || 'PK').toUpperCase();
+                        }
+
+                        const title = document.createElement('span');
+                        title.textContent = arg.event.title;
+                        title.style.fontSize = '12px';
+                        title.style.color = '#0a4e68';
+
+                        container.appendChild(logoWrap);
+                        container.appendChild(title);
+                        return { domNodes: [container] };
+                    },
+                    eventDidMount: function (info) {
+                        const props = info.event.extendedProps || {};
+                        const content = `<strong>${info.event.title}</strong><br/>` +
+                            (props.pikr_name ? `PIKR: ${props.pikr_name}<br/>` : '') +
+                            (props.description ? `Tema: ${props.description}<br/>` : '') +
+                            (props.location ? `Lokasi: ${props.location}` : '');
+                        if (typeof tippy === 'function') {
+                            tippy(info.el, {
+                                content: content,
+                                allowHTML: true,
+                                theme: 'light-border',
+                            });
+                        }
+                    }
+                });
+                calendar.render();
+
+                fetch('{{ route('landing.kegiatan.list') }}', { headers: { 'Accept': 'application/json' } })
+                    .then(r => r.json())
+                    .then(data => {
+                        const events = (data && data.events) ? data.events : [];
+                        calendar.addEventSource(events);
+                    })
+                    .catch(err => console.error('Gagal memuat kalender kegiatan:', err));
+            }
         });
     </script>
+
+    <!-- FullCalendar & Tooltip libraries -->
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/locales-all.min.js"></script>
+    <script src="https://unpkg.com/@popperjs/core@2"></script>
+    <script src="https://unpkg.com/tippy.js@6"></script>
 
     <!-- Tentang Section -->
     <section id="tentang" class="py-16 bg-white relative overflow-hidden">
@@ -366,6 +471,26 @@
                     <div class="text-xl font-bold brand-text">20+</div>
                     <div class="text-gray-700">Materi Edukasi</div>
                 </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Kalender Kegiatan Section -->
+    <section id="kalender" class="py-16 bg-white relative overflow-hidden">
+        <!-- Background decoration -->
+        <div class="absolute -right-20 -top-20 w-64 h-64 rounded-full opacity-50" style="background-color: rgba(103,205,242,0.12)"></div>
+        <div class="absolute -left-20 -bottom-20 w-80 h-80 rounded-full opacity-50" style="background-color: rgba(103,205,242,0.08)"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center mb-12 reveal">
+                <span class="inline-block px-3 py-1 brand-pill rounded-full text-sm font-semibold mb-4">Kalender Kegiatan</span>
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-900">Kegiatan <span class="brand-text">PIKR</span></h2>
+                <p class="mt-4 text-xl text-gray-600 max-w-3xl mx-auto">Lihat jadwal kegiatan PIKR per bulan, klik untuk detail PIKR.</p>
+                <div class="w-24 h-1 mx-auto mt-6" style="background-color: var(--brand)"></div>
+            </div>
+
+            <div class="bg-white rounded-xl shadow-lg p-4 reveal" style="border: 1px solid var(--brand)">
+                <div id="landing-calendar"></div>
             </div>
         </div>
     </section>

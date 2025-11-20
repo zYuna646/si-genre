@@ -9,6 +9,8 @@ Route::get('/', function () {
 
 // Public AJAX endpoint for landing PIKR listing
 Route::get('/pikr/list', [\App\Http\Controllers\LandingPikrController::class, 'index'])->name('landing.pikr.list');
+// Public AJAX endpoint for landing Kegiatan calendar
+Route::get('/kegiatan/list', [\App\Http\Controllers\LandingKegiatanController::class, 'index'])->name('landing.kegiatan.list');
 
 // PIKR Detail Route
 Route::get('/pikr/{id}', [\App\Http\Controllers\PikrDetailController::class, 'show'])->name('pikr.detail');
